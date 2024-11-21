@@ -1,0 +1,20 @@
+.popup{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background-color: gray;
+    border-radius: 5px;
+}
+.options{
+    display: flex;
+
+}
+.cancel{
+    background-color: red;
+    padding: 1px 1px;
+
+}
+.accepts{
+    background-color: green;
+    padding: 1px 1px;
+}

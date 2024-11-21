@@ -1,0 +1,68 @@
+.menus{
+    padding:0 50px;
+}
+.heading p{
+    height: 30px;
+    background-color: rgb(255, 237, 205);
+    text-align: center;
+    color: black;
+}
+.tank{
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+
+@media only screen and (max-width:360px){
+    .menus{
+        padding: 10px;
+    }
+    .box img{
+        height: 50px;
+        width: 50px;
+    }
+    .box p{
+        font-size:13px ;
+    }
+    .box{
+        margin: 10px;     
+    }
+}
+@media only screen and (max-width:300px){
+    .s2-down{
+        justify-content: center;
+        align-items: center;
+    }
+    .dishes{
+        width: 240px;
+    }
+    .dishes img{
+
+    }
+    .dishes .content{
+
+    }
+    .content div{
+        margin-bottom: 2px;
+
+    }
+
+    .content h3{
+        font-size: 13px;
+    }
+    .content .rating{
+        font-size: 12px;
+    }
+    .content div p{
+        font-size: 10px;
+    }
+    .content .price{
+        font-size: 15px;
+    }
+    .order{
+        padding: 5px;
+        font-size: 10px;
+        width: 60px;
+    }
+
+}

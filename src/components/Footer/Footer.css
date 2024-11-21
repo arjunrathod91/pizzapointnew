@@ -1,0 +1,85 @@
+.footer{
+    height: 400px;
+    width: 100%;
+    margin-top: 100px;
+}
+.link-sec{
+    width: 100%;
+    padding: 20px 0;
+
+}
+.footer-logo{
+    height: 100px;
+    width: 100%;
+    display: flex;
+}
+.pp-logo{
+    display: flex;
+    gap: 20px;
+    width: 40%;
+    /* margin-left: 40px; */
+}
+.pp-logo img{
+    height: 70px;
+    width: 80px;
+}
+.pp-logo span{
+    font-size: 30px;
+    font-weight: 500;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-style: italic;
+    
+}
+.main-logo{
+    margin: auto;
+    width: 95%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+.footer-tag{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: gray;
+    border-top: 1px solid gray;
+}
+.all-links{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    padding-bottom: 50px;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+.links{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    height: 140px;
+    width: 140px;
+}
+.links span{
+    font-weight: 400;
+    font-size: 18px;
+}
+.links a{
+    color: gray;
+}
+.links a:hover{
+    color:rgb(81, 81, 81);
+    cursor: pointer;
+}
+
+@media only screen and (max-width:530px){
+    .main-logo{
+        justify-content: center;
+        align-items: center;
+    }
+
+}

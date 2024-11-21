@@ -1,0 +1,142 @@
+/*Admin*/
+.admin{
+    background-color: rgb(255, 255, 255);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: start;
+    
+
+}
+.admin .left{
+    height: 100%;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    padding: 20px 0;
+    margin-top: 50px;
+    background-color: azure;
+
+}
+.left .column{
+    display: flex;
+    gap: 20px;
+    justify-content: start;
+    width: 100%;
+    padding-left: 20px;
+    cursor: pointer;
+}
+.column span{
+    font-size: 20px;
+    font-weight: 500;
+}
+.admin .right{
+    flex: 4;
+    width: 70%;
+    height: 100%;
+    padding:20px ;
+}
+.add-column{
+    display: flex;
+    width: 200px;
+    padding: 5px 15px;
+    border-radius: 10px;
+    gap: 20px;
+    justify-content: start;
+    background-color: rgb(255, 159, 159);
+}
+
+/*Order*/
+.orders-page{
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+
+}
+.new-order{
+    width: 90%;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+}
+.details-sec{
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+.user-order{
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+    /* height: 100px; */
+    width: 100%;
+    /* justify-content: space-between;
+    align-items: start; */
+}
+.order-item{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: start;
+}
+.item-type-png{
+    height: 13px;
+    width: 13px;
+    margin-right: 5px;
+}
+.btn-sec{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.accept{
+    padding:10px 20px;
+    font-size: 18px;
+    color: white;
+    background-color: rgb(40, 108, 20);
+    font-weight: 500;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+}
+.cancel{
+    padding:10px 20px;
+    font-size: 18px;
+    background-color: rgb(181, 37, 37);
+    color: white;
+    font-weight: 500;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+}
+.all-order-sec{
+    display: flex;
+    width: 100%;
+    margin-top: 10px;
+    flex-direction: column;
+    gap: 20px;
+}
+.acc-ord-box{
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid gray;
+    padding: 5px;
+}
+
+
+/*Menu*/
+/* .menu{
+    height: 100%;
+    width: 100%;
+    background-color: gold;
+} */

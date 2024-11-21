@@ -1,0 +1,22 @@
+.outlet{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 150px;
+
+}
+.outlet img{
+    height: 200px;
+    width: 200px;
+    margin-bottom: 20px;
+    opacity: 30%;
+}
+p{
+    font-size: 20px;
+    color: rgb(180, 180, 180);
+}
+div{
+    justify-content: center;
+    align-items: center;
+}
