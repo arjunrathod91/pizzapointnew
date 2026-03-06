@@ -19,7 +19,7 @@ function Navbar() {
     <div className='navbar'>
       <div className='left'>
         <img src={logo} alt="logo" />
-        <strong className='logo'>Pizza Point</strong>
+        <strong className='logo'>The New Pizza Point Cafe</strong>
       </div>
       <div className='right'>
         <ul>
