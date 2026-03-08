@@ -5,7 +5,7 @@ import { Context } from '../../context/Context';
 import "./Admin.css";
 
 function MenuPage() {
-  const { allorders, setAllOrders, rightSec, setRIghtSec } =
+  const {setRIghtSec } =
   useContext(Context);
   const isMobile = useMediaQuery("(max-width:600px)");
   return (

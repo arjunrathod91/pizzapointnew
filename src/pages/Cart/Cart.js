@@ -13,15 +13,8 @@ function Cart() {
     total,
     setTotal,
     loggedIn,
-    setLoggedIn,
-    allorders,
     setAllOrders,
-    newOrder,
-    setNewOrder,
-    adminOrders,
-    setAdminOrders,
     profileDetails,
-    setProfileDetails,
   } = useContext(Context);
 
   const user = JSON.parse(localStorage.getItem("user"));
@@ -165,13 +158,13 @@ function Cart() {
   };
 
   useEffect(() => {
-    if (cart.length == 0) {
+    if (cart.length === 0) {
       setTotal(0);
     }
   });
   return (
     <div className="cart">
-      {cart.length == 0 ? (
+      {cart.length === 0 ? (
         <div
           style={{
             height: "100%",
@@ -195,7 +188,8 @@ function Cart() {
           </div>
           <img
             style={{ height: "250px", width: "250px" }}
-            src="https://img.freepik.com/premium-vector/pizza-food-truck-vector-illustration_444196-6061.jpg?w=2000"
+            src="https://img.freepik.com/premium-vector/pizza-food-truck-vector-illustration_444196-6061.jpg?w=2000" 
+            alt=""
           />
           <button
             style={{
@@ -219,7 +213,7 @@ function Cart() {
           {cart.map((item, index) => (
             <div className="item-box" key={index}>
               <div className="img-sec">
-                <img src={item.img} />
+                <img src={item.img} alt=""/>
               </div>
               <div className="info-sec">
                 <strong>{item.name}</strong>
@@ -260,7 +254,7 @@ function Cart() {
           <div>Cola</div>
           <div>Cola</div> */}
           <button className="order-btn" onClick={orderNowBtn}>
-            Total {cart.length == 0 ? 0 : total}
+            Total {cart.length === 0 ? 0 : total}
           </button>
         </div>
       )}

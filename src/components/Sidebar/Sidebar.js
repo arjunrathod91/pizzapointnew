@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import '../Sidebar/Sidebar.css'
 import { Link } from 'react-router-dom'
-import { Context } from "../../context/Context";
 import HomeIcon from '@mui/icons-material/Home';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import FoodBankIcon from '@mui/icons-material/FoodBank';

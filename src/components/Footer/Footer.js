@@ -9,7 +9,7 @@ function Footer() {
         <div className='footer-logo'>
           <div className='main-logo'>
             <div className='pp-logo'>
-              <img src={logo}/>
+              <img src={logo} alt="logo img"/>
               <span>Pizza Point</span>
             </div>
             {/* <div className='pp-logo'>
@@ -46,7 +46,7 @@ function Footer() {
           </div>
         </div>
       </div>
-      <div className='footer-tag'>© 2026 PizzaPoint. All rights reserved.</div>
+      <div className='footer-tag'>© {new Date().getFullYear()} PizzaPoint. All rights reserved.</div>
     </div>
   )
 }

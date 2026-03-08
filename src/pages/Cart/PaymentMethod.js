@@ -2,13 +2,12 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../Images/logo.png";
 import { Context } from "../../context/Context";
-import axios from "axios";
 
 function PaymentMethod() {
   const [paymentType, setPaymentType] = useState("");
   const billObj = JSON.parse(localStorage.getItem("newOrder")) || [];
-  const user = JSON.parse(localStorage.getItem("user"));
-  const { cart, setCart, allorders } = useContext(Context);
+  // const user = JSON.parse(localStorage.getItem("user"));
+  const { cart, setCart} = useContext(Context);
   const navigate = useNavigate();
 
   const handlePayment = () => {
@@ -36,18 +35,6 @@ function PaymentMethod() {
         color: "#fff",
       },
     };
-
-    const userUpdate = {
-      username: user.username,
-      email: user.email,
-      password: user.password,
-      contact: user.contact,
-      address: user.address,
-      cart: [],
-      order: cart
-    };
-
-    localStorage.setItem("user", JSON.stringify(userUpdate));
     setCart([]);
     const rzp = new window.Razorpay(options);
     rzp.open();
@@ -81,7 +68,7 @@ function PaymentMethod() {
           <div key={index}>
             <div className="item-box">
               <div className="img-sec">
-                <img src={item.img} />
+                <img src={item.img} alt="" />
               </div>
               <div className="info-sec">
                 <label>{item.name}</label>

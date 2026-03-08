@@ -5,10 +5,9 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useMediaQuery } from "@mui/material";
 
 function Orders() {
-  const { allorders, setAllOrders, rightSec, setRIghtSec } =
+  const { allorders,setRIghtSec } =
     useContext(Context);
   const isMobile = useMediaQuery("(max-width:600px)");
-  const list = [];
   return (
     <div className="orders">
       {isMobile ? (
@@ -24,7 +23,7 @@ function Orders() {
           <div>
             <div className="item-box" index={index}>
               <div className="img-sec">
-                <img src={item.img} />
+                <img src={item.img} alt="" />
               </div>
               <div className="info-sec">
                 <strong>{item.name}</strong>

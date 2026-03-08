@@ -7,7 +7,7 @@ import axios from "axios";
 
 function OrdersPage() {
   const isMobile = useMediaQuery("(max-width:600px)");
-  const { allorders, setAllOrders, rightSec, setRIghtSec } =
+  const { allorders, setAllOrders, setRIghtSec } =
     useContext(Context);
 
   // const obj = JSON.parse(localStorage.getItem("newOrder")) || [];
@@ -15,7 +15,6 @@ function OrdersPage() {
     setRIghtSec(false);
   };
 
-  const [acceptedOrders, setAcceptedOrders] = useState([]);
   const [newOrders, setNewOrders] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -96,7 +95,6 @@ function OrdersPage() {
     latestOrder();
   }, [newOrders, allorders]);
 
-  const option = () => {};
 
   return (
     <div className="orders-page">
@@ -112,8 +110,7 @@ function OrdersPage() {
           <h1>Orders</h1>
           <div className="details-sec">
             <div style={{ color: "blue", fontWeight: 500, fontSize: "12px" }}>
-              Orderd by {newOrders.
-total}
+              Orderd by {newOrders.total}
             </div>
             <div className="user-order">
               {newOrders.order.map((item, index) => (
@@ -123,11 +120,12 @@ total}
                   style={{ fontWeight: "500" }}
                 >
                   <div>
-                    {item.type == "veg" ? (
+                    {item.type === "veg" ? (
                       <>
                         <img
                           className="item-type-png"
                           src="https://clipground.com/images/veg-logo-png-6.png"
+                          alt=""
                         />
                       </>
                     ) : (
@@ -135,6 +133,7 @@ total}
                         <img
                           className="item-type-png"
                           src="https://www.pngkey.com/png/full/245-2459071_non-veg-icon-non-veg-symbol-png.png"
+                          alt=""
                         />
                       </>
                     )}
@@ -191,11 +190,12 @@ total}
                           style={{ fontWeight: "500" }}
                         >
                           <div>
-                            {item.type == "veg" ? (
+                            {item.type === "veg" ? (
                               <>
                                 <img
                                   className="item-type-png"
                                   src="https://clipground.com/images/veg-logo-png-6.png"
+                                  alt=""
                                 />
                               </>
                             ) : (
@@ -203,6 +203,7 @@ total}
                                 <img
                                   className="item-type-png"
                                   src="https://www.pngkey.com/png/full/245-2459071_non-veg-icon-non-veg-symbol-png.png"
+                                  alt=""
                                 />
                               </>
                             )}

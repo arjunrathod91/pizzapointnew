@@ -1,16 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { AddAPhoto, Dashboard, ShoppingCart } from "@mui/icons-material";
-import { Menu, useMediaQuery } from "@mui/material";
+import { useMediaQuery } from "@mui/material";
 import OrdersPage from "./ordersPage";
 import MenuPage from "./menuPage";
 import { Context } from "../../context/Context";
-import zIndex from "@mui/material/styles/zIndex";
 import '../../pages/Profile/profile.css'
 // import DashboardPage from "./dashboardPage";
 
 function Admin() {
   const [section, setSection] = useState("Orders");
-  const { loggedIn, setLoggedIn, rightSec, setRIghtSec } = useContext(Context);
+  const {rightSec, setRIghtSec } = useContext(Context);
   const isMobile = useMediaQuery("(max-width:600px)");
   const [zIndexLeft, setZiNdexLeft] = useState("1");
   const [zIndexRight, setZiNdexRight] = useState("2");

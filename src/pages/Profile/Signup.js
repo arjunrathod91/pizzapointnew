@@ -3,7 +3,6 @@ import "./profile.css";
 import { Context } from "../../context/Context";
 import { useNavigate } from "react-router-dom";
 import EmailIcon from "@mui/icons-material/Email";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import LockIcon from "@mui/icons-material/Lock";
 import PersonIcon from "@mui/icons-material/Person";
 import CallIcon from "@mui/icons-material/Call";
@@ -11,7 +10,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import axios from "axios";
 
 function Signup() {
-  const { setLoggedIn, profileDetails, setProfileDetails } =
+  const { setLoggedIn} =
     useContext(Context);
   const navigate = useNavigate();
 

@@ -2,15 +2,14 @@ import React, { useContext, useEffect } from "react";
 import "../Menu/Menu.css";
 import allItems from "../../data/menu";
 import { Context } from "../../context/Context";
-import StarHalfIcon from "@mui/icons-material/StarHalf";
 import Card from "../../components/Card/Card";
 
 function Menu() {
   const { category, setCategory } = useContext(Context);
 
-  const press = () => {
-    console.log(allItems);
-  };
+  // const press = () => {
+  //   console.log(allItems);
+  // };
 
   const categoryItems = allItems.filter((item) => item.category === category);
 

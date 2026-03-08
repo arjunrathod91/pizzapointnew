@@ -1,11 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext} from "react";
 import { Context } from "../../context/Context";
 import done from "../../Images/verified.gif";
 import { useNavigate } from "react-router-dom";
 
 function OrderPlaced() {
   const navigate = useNavigate();
-   const { cart, setCart, allorders } = useContext(Context);
+   const { cart, setCart} = useContext(Context);
    const user = JSON.parse(localStorage.getItem("user"));
 
    const userUpdateCart = ()=> {

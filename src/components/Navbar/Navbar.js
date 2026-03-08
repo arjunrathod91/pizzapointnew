@@ -1,9 +1,8 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext} from 'react'
 import './Navbar.css'
 import logo from '../../Images/logo.png'
 import { Link } from 'react-router-dom'
 import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
 import Sidebar from '../Sidebar/Sidebar';
 import { Context } from '../../context/Context';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -13,7 +12,6 @@ import { useLocation } from 'react-router-dom';
 
 function Navbar({open,setOpen}) {
   // const [open,setOpen] = useState(false)
-  const {sidebarOpen,setSidebarOpen} = useContext(Context);
   const location = useLocation();
   return (
     <div className='navbar'>

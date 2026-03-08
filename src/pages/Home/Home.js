@@ -1,43 +1,42 @@
 import React, { useContext, useEffect, useState } from "react";
-import Navbar from "../../components/Navbar/Navbar";
+// import Navbar from "../../components/Navbar/Navbar";
 import "./Home.css";
-import pizza from "../../Images/pizza img 2.png";
+// import pizza from "../../Images/pizza img 2.png";
 // import allItems from "../../data/menu";
 import burger from "../../Images/burger.jpg";
 import momos from "../../Images/momos.png";
 import sandwitch from "../../Images/sandwitch.jpg";
 import fries from "../../Images/fries.webp";
-import telephone from "../../Images/telephone.png";
-import delivary from "../../Images/delivery-bike.png";
-import veggieSupreme from "../../Images/veggie supreme.jpg";
-import StarHalfIcon from "@mui/icons-material/StarHalf";
+// import telephone from "../../Images/telephone.png";
+// import delivary from "../../Images/delivery-bike.png";
+// import veggieSupreme from "../../Images/veggie supreme.jpg";
+// import StarHalfIcon from "@mui/icons-material/StarHalf";
 import Footer from "../../components/Footer/Footer";
-import { Link, useNavigate } from "react-router-dom";
-import Sidebar from "../../components/Sidebar/Sidebar";
+import { useNavigate } from "react-router-dom";
 import { Context } from "../../context/Context";
 import Card from "../../components/Card/Card";
 import axios from "axios";
-import { Troubleshoot } from "@mui/icons-material";
+// import { Troubleshoot } from "@mui/icons-material";
 
 function Home({open}) {
   const navigate = useNavigate();
   const {
-    sidebarOpen,
-    setSidebarOpen,
-    cart,
+    // sidebarOpen,
+    // setSidebarOpen,
+    // cart,
     setCart,
-    total,
+    // total,
     setTotal,
-    category,
+    // category,
     setCategory,
   } = useContext(Context);
 
-  const cartObj = (item) => {
-    setCart((prevCart) => {
-      return [...prevCart, { ...item, quantity: 1 }];
-    });
-    setTotal((prevTotal) => prevTotal + Number(item.price));
-  };
+  // const cartObj = (item) => {
+  //   setCart((prevCart) => {
+  //     return [...prevCart, { ...item, quantity: 1 }];
+  //   });
+  //   setTotal((prevTotal) => prevTotal + Number(item.price));
+  // };
   const imgSrc = [
     "https://static.vecteezy.com/system/resources/previews/023/961/870/original/pizza-banner-or-background-pizza-on-the-board-illustration-vector.jpg",
     "https://th.bing.com/th/id/OIP.FFmT5wGpju1U9siFEF8lmAHaJl?w=535&h=693&rs=1&pid=ImgDetMain",
@@ -107,7 +106,7 @@ function Home({open}) {
       </div> */}
       <div className="overflow">
         <div className="slider">
-          <img src={sliderImg} style={style} />
+          <img src={sliderImg} style={style} alt=""/>
           <div className="controls">
             <div
               className={`ball ${activeIndex === "0" ? "active" : ""}`}
@@ -226,7 +225,7 @@ function Home({open}) {
             )
           ) : (
             <div className="loading">
-              <img src="https://icon-library.com/images/burger-icon-png/burger-icon-png-1.jpg" />
+              <img src="https://icon-library.com/images/burger-icon-png/burger-icon-png-1.jpg" alt="" />
               <div style={{ marginLeft: "5px" }}>Loading ...</div>
             </div>
           )}

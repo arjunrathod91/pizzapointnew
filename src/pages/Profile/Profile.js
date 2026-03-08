@@ -25,9 +25,9 @@ function Profile() {
   };
 
   const navigate = useNavigate();
-  const login = () => {
-    setLoggedIn(true);
-  };
+  // const login = () => {
+  //   setLoggedIn(true);
+  // };
 
   const responsiveCtr = () => {
     if (isMobile) {

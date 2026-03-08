@@ -1,13 +1,12 @@
 import React, { useContext } from "react";
 import StarHalfIcon from "@mui/icons-material/StarHalf";
-import { Link, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import { Context } from "../../context/Context";
 import "./Card.css";
 import axios from "axios";
 
 function Card({ item, index }) {
-  const navigate = useNavigate();
-  const { setCart, setTotal, cart, allorders,loggedIn } = useContext(Context);
+  const { setCart, setTotal, cart,loggedIn } = useContext(Context);
 
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -40,11 +39,11 @@ function Card({ item, index }) {
     setTotal((prevTotal) => prevTotal + Number(item.price));
   };
 
-  const deleteItem = (item) => {
-    const updatedItems = cart.filter((cartItem) => cartItem.name !== item.name);
-    setCart(updatedItems);
-    setTotal((prev) => prev - item.price * item.quantity);
-  };
+  // const deleteItem = (item) => {
+  //   const updatedItems = cart.filter((cartItem) => cartItem.name !== item.name);
+  //   setCart(updatedItems);
+  //   setTotal((prev) => prev - item.price * item.quantity);
+  // };
   return (
     <div className="dishes" item={item} key={index} index={index}>
       <img src={item.img ? item.img : ''} alt="" />
