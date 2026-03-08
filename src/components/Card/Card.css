@@ -56,6 +56,17 @@
     border-radius: 5px;
     float: right;
 }
+
+.added{
+    padding: 8px 10px;
+    font-size: 15px;
+    font-weight: 400;
+    background-color: rgb(181, 169, 149);
+    border: none;
+    color: white;
+    border-radius: 5px;
+    float: right;
+}
 .order:hover{
     background-color: rgb(231, 143, 3);
 }

@@ -85,8 +85,13 @@
     display: flex;
     cursor: pointer;
     padding: 5px;
+    font-size: 20px;
     font-weight: 500;
     font-family: sans-serif;
+}
+
+.login-txt{
+    font-family:fantasy;
 }
 
 @media only screen and (max-width:436px) {

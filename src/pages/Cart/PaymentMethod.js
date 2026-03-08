@@ -40,15 +40,16 @@ function PaymentMethod() {
     rzp.open();
   };
 
-  const newOrder=()=>{
+  // const newOrder=()=>{
 
-  }
+  // }
 
   const payBill = () => {
+    console.log(cart);
     if (paymentType === "Online") {
       billObj["paymentType"] = paymentType;
       handlePayment();
-      setCart("");
+      setCart([]);
     } else {
       navigate("/orderplaced");
     }
@@ -64,8 +65,8 @@ function PaymentMethod() {
           Total Bill : ₹<span style={{ fontWeight: "500" }}>{billObj.total}</span>
         </div>
         {cart.map((item, index) => (
-          <div>
-            <div className="item-box" index={index}>
+          <div key={index}>
+            <div className="item-box">
               <div className="img-sec">
                 <img src={item.img} />
               </div>

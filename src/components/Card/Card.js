@@ -6,6 +6,7 @@ import "./Card.css";
 import axios from "axios";
 
 function Card({ item, index }) {
+  const navigate = useNavigate();
   const { setCart, setTotal, cart, allorders } = useContext(Context);
 
   const user = JSON.parse(localStorage.getItem("user"));
@@ -16,24 +17,32 @@ function Card({ item, index }) {
     });
 
     const userUpdate = {
-      username: user[0].username,
-      email: user[0].email,
-      password: user[0].password,
-      contact: user[0].contact,
-      address: user[0].address,
+      username: user.username,
+      email: user.email,
+      password: user.password,
+      contact: user.contact,
+      address: user.address,
       cart: [...cart, { ...item, quantity: 1 }], // Include the new item in the cart
     };
     console.log(userUpdate);
     try {
       const response = await axios.put(
-        "https://pizzapointserver-1.onrender.com/userDetail",
+        "https://pizzapointserver.onrender.com/userDetail",
+        // "http://localhost:8000/userDetail",
         userUpdate
       );
       console.log("Cart updated successfully:", response.data);
+      localStorage.setItem("user", JSON.stringify(response.data));
     } catch (error) {
       console.log(error);
     }
     setTotal((prevTotal) => prevTotal + Number(item.price));
+  };
+
+  const deleteItem = (item) => {
+    const updatedItems = cart.filter((cartItem) => cartItem.name !== item.name);
+    setCart(updatedItems);
+    setTotal((prev) => prev - item.price * item.quantity);
   };
   return (
     <div className="dishes" item={item} key={index} index={index}>
@@ -50,13 +59,17 @@ function Card({ item, index }) {
           <p>{item.ingridient ? item.ingridient.substring(0, 10) : ''}</p>
           <p className="price">₹{item.price}</p>
         </div>
-        <button
-          className="order"
-          style={{ cursor: "pointer" }}
-          onClick={() => cartObj(item)}
-        >
-          Order Now
-        </button>
+        {cart.some((cartItem) => cartItem._id === item._id) ? (
+          <button className="added"> 
+          {/* onClick={() => deleteItem(item)} */}
+          {/* onClick={() => navigate("/cart")} */}
+            Added To Cart
+          </button>
+        ) : (
+          <button className="order" onClick={() => cartObj(item)}>
+            Order Now
+          </button>
+        )}
       </div>
     </div>
   );

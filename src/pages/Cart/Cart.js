@@ -81,26 +81,26 @@ function Cart() {
         );
 
         const userUpdate = {
-          username: user[0].username,
-          email: user[0].email,
-          password: user[0].password,
-          contact: user[0].contact,
-          address: user[0].address,
+          username: user.username,
+          email: user.email,
+          password: user.password,
+          contact: user.contact,
+          address: user.address,
           cart: cart,
           order: cart,
         };
         const userOrder = {
-          username: user[0].username,
-          email: user[0].email,
-          password: user[0].password,
-          contact: user[0].contact,
-          address: user[0].address,
+          username: user.username,
+          email: user.email,
+          password: user.password,
+          contact: user.contact,
+          address: user.address,
           order: cart,
           total:total
         };
         try {
           const response1 = await axios.put(
-            "https://pizzapointserver-1.onrender.com/userDetail",
+            "https://pizzapointserver.onrender.com/userDetail",
             userUpdate
           );
           navigate("/paymentmethod");
@@ -111,7 +111,7 @@ function Cart() {
 
         try {
           const response = await axios.post(
-            "https://pizzapointserver-1.onrender.com/newOrder",
+            "https://pizzapointserver.onrender.com/newOrder",
             userOrder
           );
           console.log("the data of user sent successfully:", response.data);
@@ -217,7 +217,7 @@ function Cart() {
       ) : (
         <div className="cart-box">
           {cart.map((item, index) => (
-            <div className="item-box" index={index}>
+            <div className="item-box" key={index}>
               <div className="img-sec">
                 <img src={item.img} />
               </div>
@@ -260,7 +260,7 @@ function Cart() {
           <div>Cola</div>
           <div>Cola</div> */}
           <button className="order-btn" onClick={orderNowBtn}>
-            Order Now {cart.length == 0 ? 0 : total}
+            Total {cart.length == 0 ? 0 : total}
           </button>
         </div>
       )}

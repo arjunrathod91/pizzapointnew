@@ -30,7 +30,7 @@ function Signup() {
         "address":address
       }
       axios
-        .post("https://pizzapointserver-1.onrender.com/userDetail", user)
+        .post("https://pizzapointserver.onrender.com/userDetail", user)
         .then((response) => {
           console.log(response.data);
         })

@@ -11,15 +11,15 @@ import WestIcon from '@mui/icons-material/West';
 import PersonIcon from '@mui/icons-material/Person';
 import { useLocation } from 'react-router-dom';
 
-function Navbar() {
-  const [open,setOpen] = useState(false)
+function Navbar({open,setOpen}) {
+  // const [open,setOpen] = useState(false)
   const {sidebarOpen,setSidebarOpen} = useContext(Context);
   const location = useLocation();
   return (
     <div className='navbar'>
       <div className='left'>
         <img src={logo} alt="logo" />
-        <strong className='logo'>The New Pizza Point Cafe</strong>
+        <strong className='logo'>Pizza Point</strong>
       </div>
       <div className='right'>
         <ul>
@@ -33,11 +33,12 @@ function Navbar() {
         </ul>
       </div>
       <div style={{color:'white',gap:'20px',display:'flex'}}>
-          <Link to="/cart"><ShoppingCartIcon/></Link>
-          <Link to="/profile"><PersonIcon/></Link>
+          <Link to="/cart" onClick={()=>setOpen(false)}><ShoppingCartIcon/></Link>
+          <Link to="/profile" onClick={()=>setOpen(false)}><PersonIcon/></Link>
         </div>
-      <div className='menu' onClick={()=>setSidebarOpen(!sidebarOpen)}>
-        {location.pathname === "/" ? <MenuIcon sx={{color:'white'}}/> : <Link to="/"><WestIcon sx={{color:'white'}}/></Link> }
+      <div className='menu'>
+        {location.pathname === "/" ? <MenuIcon onClick={()=>setOpen(!open)} sx={{color:'white'}}/> : <Link to="/" onClick={()=>setOpen(false)}><WestIcon sx={{color:'white'}}/></Link> }
+        {/* {open ? <CloseIcon sx={{color:'white'}}/> : <MenuIcon sx={{color:'white'}}/>} */}
       </div>
       {open && <Sidebar/>}
     </div>

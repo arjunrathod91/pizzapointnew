@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import "./Home.css";
 import pizza from "../../Images/pizza img 2.png";
+// import allItems from "../../data/menu";
 import burger from "../../Images/burger.jpg";
 import momos from "../../Images/momos.png";
 import sandwitch from "../../Images/sandwitch.jpg";
@@ -16,8 +17,9 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import { Context } from "../../context/Context";
 import Card from "../../components/Card/Card";
 import axios from "axios";
+import { Troubleshoot } from "@mui/icons-material";
 
-function Home() {
+function Home({open}) {
   const navigate = useNavigate();
   const {
     sidebarOpen,
@@ -47,6 +49,7 @@ function Home() {
   const [activeIndex, setActiveIndex] = useState("0");
   const [allItems, setAllItems] = useState([]);
   const [loadMore, setLoadMore] = useState(10);
+  const [close,setClose] = useState(false);
 
   const transition = (newImg) => {
     setStyle({
@@ -68,7 +71,8 @@ function Home() {
     const fetchMenu = async () => {
       try {
         const response = await axios.get(
-          "https://pizzapointserver-1.onrender.com/allItems"
+          "https://pizzapointserver.onrender.com/allItems"
+          // "http://localhost:8000/allItems"
         );
         setAllItems(response.data);
       } catch (err) {
@@ -95,12 +99,12 @@ function Home() {
   };
   return (
     <div className="home">
-      <div
+      {/* <div
         className="sidebar-section"
-        style={{ display: `${sidebarOpen ? "flex" : "none"}` }}
+        style={{ display: `${open ? "flex" : "none"}` }}
       >
         <Sidebar />
-      </div>
+      </div> */}
       <div className="overflow">
         <div className="slider">
           <img src={sliderImg} style={style} />
@@ -129,8 +133,8 @@ function Home() {
           </div>
           {/* <div className="s-left">
             <img src={''} alt="" />
-          </div>
-          <div className="s-right">
+          </div> */}
+          {/* <div className="s-right">
             <strong>Pizza Point</strong>
             <p>Cheesy Fun Flavour</p>
             <button>Order Now</button>
@@ -236,8 +240,8 @@ function Home() {
         </div>
         )}
       </section>
-      {/* {allItems.length > 0 ? console.log(true) : console.log(false)} */}
-      {/* <section className="section2">
+      {/* {allItems.length > 0 ? console.log(true) : console.log(false)}
+      <section className="section2">
         <h2>Top Dishes</h2>
         <div className="s2-down">
           {pizza.map((item, index) => (
@@ -245,7 +249,7 @@ function Home() {
           ))}
         </div>
       </section> */}
-      <section className="call-delivery">
+      {/* <section className="call-delivery"> */}
         {/* <div><img src={telephone} alt="" />
         <p className="delivery-text">Call On Delivary</p>
         </div>
@@ -253,48 +257,70 @@ function Home() {
           <img src={delivary} alt="" />
           <p className="order-no">+91 7350887544</p>
         </div> */}
-      </section>
+      {/* </section> */}
       <section className="reviews">
         <div className="heads"> Reviews</div>
         <div className="block">
           <div className="review">
-            <img
+            {/* <img
               src="https://th.bing.com/th/id/R.401e039791cb60a99db7574995b20ac5?rik=rp30JJuIzeQdWg&riu=http%3a%2f%2fwww.dailyexcelsior.com%2fwp-content%2fuploads%2f2018%2f12%2fShahrukh-Khan.jpg&ehk=6AraZHbQ%2fZ2Gti88ZqaMmCK05C74TjyOsO%2buVFCUT3I%3d&risl=&pid=ImgRaw&r=0"
               alt=""
-            />
-            <div>Rating</div>
+            /> */}
+            {/* <div>Rating</div> */}
             <p>
-              Pizza Point is very good in teast. Everyone should have to try it
-              once. It have potential to dominate Dominos
+              "Ordered late at night and the pizza arrived hot and fresh. The cheese was perfectly melted and the packaging was great. Highly recommended!""
             </p>
+            <div className="name-box">
+            <p className="name">- Sneha Jadhav</p>
+            </div>
           </div>
           <div className="review">
-            <img
+            {/* <img
               src="https://th.bing.com/th/id/R.401e039791cb60a99db7574995b20ac5?rik=rp30JJuIzeQdWg&riu=http%3a%2f%2fwww.dailyexcelsior.com%2fwp-content%2fuploads%2f2018%2f12%2fShahrukh-Khan.jpg&ehk=6AraZHbQ%2fZ2Gti88ZqaMmCK05C74TjyOsO%2buVFCUT3I%3d&risl=&pid=ImgRaw&r=0"
               alt=""
-            />
-            <div>Rating</div>
+            /> */}
+            {/* <div>Rating</div> */}
             <p>
-              Pizza Point is very good in teast. Everyone should have to try it
-              once. It have potential to dominate Dominos
+              “Great experience overall. Friendly service and quick delivery. The garlic bread and pizza combo was amazing.”
             </p>
+            <div className="name-box">
+            <p className="name">- Rahul Pawar</p>
+            </div>
           </div>
           <div className="review">
-            <img
+            {/* <img
               src="https://th.bing.com/th/id/R.401e039791cb60a99db7574995b20ac5?rik=rp30JJuIzeQdWg&riu=http%3a%2f%2fwww.dailyexcelsior.com%2fwp-content%2fuploads%2f2018%2f12%2fShahrukh-Khan.jpg&ehk=6AraZHbQ%2fZ2Gti88ZqaMmCK05C74TjyOsO%2buVFCUT3I%3d&risl=&pid=ImgRaw&r=0"
               alt=""
-            />
-            <div>Rating</div>
+            /> */}
+            {/* <div>Rating</div> */}
             <p>
-              Pizza Point is very good in teast. Everyone should have to try it
-              once. It have potential to dominate Dominos
+              "One of the best pizzas I’ve had recently. The crust was perfectly baked and the toppings tasted very fresh. Definitely ordering again from PizzaPoint!"
             </p>
+            <div className="name-box">
+            <p className="name">- Avinash Kumar</p>
+            </div>
           </div>
         </div>
       </section>
+      {/* <section className="write-review"> */}
+        {/* <h2>Write a Review</h2> */}
+        {/* <div >
+          <input type="text" placeholder="Your Name" />
+          <input type="text" placeholder="Your Email" />
+          <textarea
+            cols="30"
+            rows="10"
+            placeholder="Write your review here..."
+          ></textarea>
+          <button>Submit</button>
+        </div> */}
+      {/* </section> */}
       <Footer />
+
     </div>
+
   );
 }
 
 export default Home;
+

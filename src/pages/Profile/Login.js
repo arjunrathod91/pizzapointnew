@@ -16,7 +16,7 @@ function Login({}) {
   const handleBtn = async ()=>{
     const fetchMenu = async () => {
       try {
-        const response = await axios.post('https://pizzapointserver-1.onrender.com/login', {
+        const response = await axios.post('https://pizzapointserver.onrender.com/login', {
           email: inputEmail,
           password: inputPassword
         });
@@ -29,6 +29,7 @@ function Login({}) {
         
         const userData = response.data;
         console.log(userData);
+        localStorage.setItem("user", JSON.stringify(userData.user));
     
       } catch (err) {
         console.error('Error fetching menu data:', err);
@@ -37,11 +38,35 @@ function Login({}) {
 
     fetchMenu();
   }
+
+  const pushDummyData = () => {
+
+  const dummyUser = {
+      username: "guest101",
+      email: "guest101@gmail.com",
+      password: "guest1234",
+      contact: "1234567890",
+      address: "address guest",
+  };
+   axios
+        .post("https://pizzapointserver.onrender.com/userDetail", dummyUser)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error("There was an error", error);
+          // alert("Failed to signup.");
+        });
+        // alert("Signup Successfully!");
+        localStorage.setItem("user", JSON.stringify(dummyUser));
+        setLoggedIn(true);
+        navigate("/profile");
+};
   return (
     <div className="login">
         <div className="login-box">
           <div className="header">
-            <span>Login</span>
+            <span className="login-txt">Login</span>
           </div>
           <div className="item">
             <label>
@@ -56,7 +81,8 @@ function Login({}) {
             <input type="password" placeholder="Password" value={inputPassword} onChange={(e)=>setInputPassword(e.target.value)} />
           </div>
             <button className="login-btn" onClick={()=>{setLoggedIn(true);handleBtn()}}>Login</button>
-          <span onClick={() => navigate("/signup")} style={{cursor:'pointer'}}>Create new account ? </span>
+          <span onClick={pushDummyData}>Login As Guest</span>
+          <span onClick={() => navigate("/signup")} style={{cursor:'pointer'}}>Create New Account </span>
         </div>
     </div>
   );

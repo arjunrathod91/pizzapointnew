@@ -17,23 +17,23 @@ function Info() {
       <div>User Details</div>
         <div className="item-sec">
           <label className="label">Name</label>
-          <div className="item">{user[0].username}</div>
+          <div className="item">{user.username}</div>
         </div>
         <div className="item-sec">
           <label className="label">Address</label>
-          <div className="item">{user[0].address}</div>
+          <div className="item">{user.address}</div>
         </div>
         <div className="item-sec">
           <label className="label">Mobile NO.</label>
-          <div className="item">{user[0].contact}</div>
+          <div className="item">{user.contact}</div>
         </div>
         <div className="item-sec">
           <label className="label">Password</label>
-          <div className="item">{user[0].password}</div>
+          <div className="item">{user.password}</div>
         </div>
         <div className="item-sec">
           <label className="label">Email Id</label>
-          <div className="item">{user[0].email}</div>
+          <div className="item">{user.email}</div>
         </div>
       </div>
     </div>
