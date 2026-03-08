@@ -7,7 +7,8 @@ import axios from "axios";
 function PaymentMethod() {
   const [paymentType, setPaymentType] = useState("");
   const billObj = JSON.parse(localStorage.getItem("newOrder")) || [];
-  const { cart,setCart, allorders } = useContext(Context);
+  const user = JSON.parse(localStorage.getItem("user"));
+  const { cart, setCart, allorders } = useContext(Context);
   const navigate = useNavigate();
 
   const handlePayment = () => {
@@ -36,6 +37,18 @@ function PaymentMethod() {
       },
     };
 
+    const userUpdate = {
+      username: user.username,
+      email: user.email,
+      password: user.password,
+      contact: user.contact,
+      address: user.address,
+      cart: [],
+      order: cart
+    };
+
+    localStorage.setItem("user", JSON.stringify(userUpdate));
+    setCart([]);
     const rzp = new window.Razorpay(options);
     rzp.open();
   };
@@ -45,11 +58,11 @@ function PaymentMethod() {
   // }
 
   const payBill = () => {
-    console.log(cart);
     if (paymentType === "Online") {
       billObj["paymentType"] = paymentType;
       handlePayment();
       setCart([]);
+      console.log(cart);
     } else {
       navigate("/orderplaced");
     }

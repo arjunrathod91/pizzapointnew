@@ -7,7 +7,7 @@ import axios from "axios";
 
 function Card({ item, index }) {
   const navigate = useNavigate();
-  const { setCart, setTotal, cart, allorders } = useContext(Context);
+  const { setCart, setTotal, cart, allorders,loggedIn } = useContext(Context);
 
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -15,8 +15,8 @@ function Card({ item, index }) {
     setCart((prevCart) => {
       return [...prevCart, { ...item, quantity: 1 }];
     });
-
-    const userUpdate = {
+    if(loggedIn){
+      const userUpdate = {
       username: user.username,
       email: user.email,
       password: user.password,
@@ -35,6 +35,7 @@ function Card({ item, index }) {
       localStorage.setItem("user", JSON.stringify(response.data));
     } catch (error) {
       console.log(error);
+    }
     }
     setTotal((prevTotal) => prevTotal + Number(item.price));
   };

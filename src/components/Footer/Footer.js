@@ -46,7 +46,7 @@ function Footer() {
           </div>
         </div>
       </div>
-      <div className='footer-tag'>@pizzapoint.com</div>
+      <div className='footer-tag'>© 2026 PizzaPoint. All rights reserved.</div>
     </div>
   )
 }
