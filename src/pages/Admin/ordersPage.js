@@ -7,7 +7,7 @@ import axios from "axios";
 
 function OrdersPage() {
   const isMobile = useMediaQuery("(max-width:600px)");
-  const { allorders, setAllOrders, setRIghtSec } =
+  const { allorders, setAllOrders, setRIghtSec} =
     useContext(Context);
 
   // const obj = JSON.parse(localStorage.getItem("newOrder")) || [];
@@ -16,7 +16,7 @@ function OrdersPage() {
   };
 
   const [newOrders, setNewOrders] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
 
   const newOrder = () => {
     const fetch = async () => {
@@ -85,15 +85,15 @@ function OrdersPage() {
   // const cancel = () => {};
 
   useEffect(() => {
-    async function fetchData() {
-      setLoading(true); // Start loading
-      await newOrder(); // Fetch your data
-      await latestOrder();
-      setLoading(false); // Stop loading
-    }
+    // async function fetchData() {
+    //   setLoading(true); // Start loading
+    //   await newOrder(); // Fetch your data
+    //   await latestOrder();
+    //   setLoading(false); // Stop loading
+    // }
     newOrder();
     latestOrder();
-  }, [newOrders, allorders]);
+  }, [newOrders, allorders,latestOrder, newOrder]);
 
 
   return (

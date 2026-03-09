@@ -3,7 +3,6 @@ import "./profile.css";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../../context/Context";
 import EmailIcon from "@mui/icons-material/Email";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import LockIcon from "@mui/icons-material/Lock";
 import axios from "axios";
 

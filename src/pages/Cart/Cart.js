@@ -3,7 +3,7 @@ import "./Cart.css";
 import { Context } from "../../context/Context";
 import { useNavigate } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
-import logo from "../../Images/logo.png";
+
 import axios from "axios";
 
 function Cart() {
