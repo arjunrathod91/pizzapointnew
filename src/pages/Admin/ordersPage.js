@@ -7,103 +7,82 @@ import axios from "axios";
 
 function OrdersPage() {
   const isMobile = useMediaQuery("(max-width:600px)");
-  const { allorders, setAllOrders, setRIghtSec} =
-    useContext(Context);
+  const { allorders, setAllOrders, setRIghtSec } = useContext(Context);
 
-  // const obj = JSON.parse(localStorage.getItem("newOrder")) || [];
   const press = () => {
     setRIghtSec(false);
   };
 
   const [newOrders, setNewOrders] = useState({});
-  // const [, setLoading] = useState(true);
 
-  const newOrder = () => {
-    const fetch = async () => {
+  // -------------------
+  // Fetch orders on mount
+  // -------------------
+  useEffect(() => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get(
+        // Fetch latest new order
+        const newOrderRes = await axios.get(
           "https://pizzapointserver.onrender.com/newOrder"
         );
-        setNewOrders(response.data[[response.data.length - 1]]);
-      } catch (err) {
-        console.error("Error fetching data:", err.message);
-      }
-    };
-    fetch();
-  };
+        if (newOrderRes.data.length > 0) {
+          setNewOrders(newOrderRes.data[newOrderRes.data.length - 1]);
+        }
 
-  const latestOrder = () => {
-    const fetch = async () => {
-      try {
-        const response = await axios.get(
+        // Fetch all orders
+        const allOrdersRes = await axios.get(
           "https://pizzapointserver.onrender.com/allOrders"
         );
-        setAllOrders(response.data);
+        setAllOrders(allOrdersRes.data);
       } catch (err) {
         console.error("Error fetching data:", err.message);
       }
     };
-    fetch();
-  };
 
+    fetchData();
+  }, []); // empty dependency array — runs once on mount
+
+  // -------------------
+  // Accept and Cancel functions
+  // -------------------
   const accept = async () => {
-    axios
-      .post("https://pizzapointserver.onrender.com/allOrders", newOrders)
-      .then((response) => {
-        console.log("Response:", response.data); // Log the response data
-      })
-      .catch((error) => {
-        console.error("There was an error:", error); // Log the entire error
-        if (error.response) {
-          console.error("Response data:", error.response.data);
-          console.error("Response status:", error.response.status);
-          console.error("Response headers:", error.response.headers);
-        } else if (error.request) {
-          console.error(
-            "Request made but no response received:",
-            error.request
-          );
-        } else {
-          console.error("Error setting up the request:", error.message);
-        }
-      });
-    cancel();
-  };
-  const cancel = () => {
-    console.log(newOrders._id)
-    axios
-      .delete("https://pizzapointserver.onrender.com/newOrder", {
-        data: { id: newOrders._id }, // pass the order ID in the body
-      })
-      .then((response) => {
-        console.log("Order deleted:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error deleting order:", error);
-      });
-  };
-  // const cancel = () => {};
-
-  useEffect(() => {
-  const fetchData = async () => {
-    await newOrder();
-    await latestOrder();
+    try {
+      const response = await axios.post(
+        "https://pizzapointserver.onrender.com/allOrders",
+        newOrders
+      );
+      console.log("Response:", response.data);
+      cancel(); // delete from newOrder after accepting
+    } catch (error) {
+      console.error("Error posting order:", error);
+    }
   };
 
-  fetchData();
-}, []);
+  const cancel = async () => {
+    if (!newOrders._id) return;
+    try {
+      const response = await axios.delete(
+        "https://pizzapointserver.onrender.com/newOrder",
+        { data: { id: newOrders._id } }
+      );
+      console.log("Order deleted:", response.data);
+    } catch (error) {
+      console.error("Error deleting order:", error);
+    }
+  };
 
-
+  // -------------------
+  // Render
+  // -------------------
   return (
     <div className="orders-page">
-      {isMobile ? (
+      {isMobile && (
         <div onClick={press}>
           <ArrowBackIcon />
         </div>
-      ) : (
-        ""
       )}
-      {newOrders && newOrders.order ? (
+
+      {newOrders && newOrders.order && (
         <div className="new-order">
           <h1>Orders</h1>
           <div className="details-sec">
@@ -112,29 +91,17 @@ function OrdersPage() {
             </div>
             <div className="user-order">
               {newOrders.order.map((item, index) => (
-                <div
-                  className="order-item"
-                  key={index}
-                  style={{ fontWeight: "500" }}
-                >
+                <div className="order-item" key={index} style={{ fontWeight: 500 }}>
                   <div>
-                    {item.type === "veg" ? (
-                      <>
-                        <img
-                          className="item-type-png"
-                          src="https://clipground.com/images/veg-logo-png-6.png"
-                          alt=""
-                        />
-                      </>
-                    ) : (
-                      <>
-                        <img
-                          className="item-type-png"
-                          src="https://www.pngkey.com/png/full/245-2459071_non-veg-icon-non-veg-symbol-png.png"
-                          alt=""
-                        />
-                      </>
-                    )}
+                    <img
+                      className="item-type-png"
+                      src={
+                        item.type === "veg"
+                          ? "https://clipground.com/images/veg-logo-png-6.png"
+                          : "https://www.pngkey.com/png/full/245-2459071_non-veg-icon-non-veg-symbol-png.png"
+                      }
+                      alt={item.type}
+                    />
                     {item.quantity} x {item.name}
                   </div>
                   <div>₹{item.price}</div>
@@ -146,7 +113,7 @@ function OrdersPage() {
                   borderBottom: "1px solid rgb(209, 209, 209)",
                   margin: "10px 0",
                 }}
-              ></div>
+              />
               <div className="order-item">
                 <div>
                   Total Bill <span style={{ color: "red" }}>Paid</span>
@@ -162,72 +129,51 @@ function OrdersPage() {
                 </button>
               </div>
             </div>
-            <div className=""></div>
           </div>
-          <div></div>
         </div>
-      ) : (
-        ""
       )}
+
       <div>All Orders</div>
       <div className="all-order-sec">
-        {allorders
-          ? allorders.map((item, index) => (
-              <div className="acc-ord-box" key={index}>
-                <div
-                  style={{ color: "blue", fontWeight: 500, fontSize: "12px" }}
-                >
-                  Orderd by {item.username}
-                </div>
-                <div className="user-order">
-                  {allorders
-                    ? item.order.map((item, index) => (
-                        <div
-                          className="order-item"
-                          key={index}
-                          style={{ fontWeight: "500" }}
-                        >
-                          <div>
-                            {item.type === "veg" ? (
-                              <>
-                                <img
-                                  className="item-type-png"
-                                  src="https://clipground.com/images/veg-logo-png-6.png"
-                                  alt=""
-                                />
-                              </>
-                            ) : (
-                              <>
-                                <img
-                                  className="item-type-png"
-                                  src="https://www.pngkey.com/png/full/245-2459071_non-veg-icon-non-veg-symbol-png.png"
-                                  alt=""
-                                />
-                              </>
-                            )}
-                            {item.quantity} x {item.name}
-                          </div>
-                          <div>₹{item.price}</div>
-                        </div>
-                      ))
-                    : "NO Order Yet"}
-                  <div
-                    style={{
-                      width: "100%",
-                      borderBottom: "1px solid rgb(209, 209, 209)",
-                      margin: "10px 0",
-                    }}
-                  ></div>
-                  <div className="order-item">
-                    <div>
-                      Total Bill <span style={{ color: "red" }}>Paid</span>
-                    </div>
-                    <div>{item.total}</div>
+        {allorders?.map((item, index) => (
+          <div className="acc-ord-box" key={index}>
+            <div style={{ color: "blue", fontWeight: 500, fontSize: "12px" }}>
+              Orderd by {item.username}
+            </div>
+            <div className="user-order">
+              {item.order?.map((orderItem, idx) => (
+                <div className="order-item" key={idx} style={{ fontWeight: 500 }}>
+                  <div>
+                    <img
+                      className="item-type-png"
+                      src={
+                        orderItem.type === "veg"
+                          ? "https://clipground.com/images/veg-logo-png-6.png"
+                          : "https://www.pngkey.com/png/full/245-2459071_non-veg-icon-non-veg-symbol-png.png"
+                      }
+                      alt={orderItem.type}
+                    />
+                    {orderItem.quantity} x {orderItem.name}
                   </div>
+                  <div>₹{orderItem.price}</div>
                 </div>
+              ))}
+              <div
+                style={{
+                  width: "100%",
+                  borderBottom: "1px solid rgb(209, 209, 209)",
+                  margin: "10px 0",
+                }}
+              />
+              <div className="order-item">
+                <div>
+                  Total Bill <span style={{ color: "red" }}>Paid</span>
+                </div>
+                <div>{item.total}</div>
               </div>
-            ))
-          : ""}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
