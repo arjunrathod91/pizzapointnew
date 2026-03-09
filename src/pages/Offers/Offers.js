@@ -1,29 +1,33 @@
 import React from "react";
 import "./Offers.css";
 import Card from "../../components/Card/Card";
+import burgerMeal from "../../Images/offers/burgermeal.png";
+import pizzaMeal from "../../Images/offers/1+1.png";
+import bigCombo from "../../Images/offers/bigcombo.png"
+
 
 function Offers() {
   const offer = [
     {
-      name: '2 Crispy Burgers + 2 Regular Fries + 2 Regular Cold Drink',
-      price: '189',
-      img: 'https://www.everydayonsales.com/wp-content/uploads/sites/5/2020/09/9d165228-b4bc-4498-b74f-a995823982ee.jpg',
+      name: '1 + 1 Tandoori Chiken Pizza',
+      price: '229',
+      img: pizzaMeal,
       category:'offer',
       type:'non-veg',
       tag:'chicken pizza'
   },
   {
-    name: '2 Tandoori Paneer Pizza + Regular Cold Drink',
-    price: '199',
-    img: 'https://www.everydayonsales.com/wp-content/uploads/sites/5/2020/09/9d165228-b4bc-4498-b74f-a995823982ee.jpg',
+    name: '1 Chiken Grill Burger + 1 Regular Fries + 1 Cold Drink',
+    price: '149',
+    img: burgerMeal,
     category:'offer',
     type:'non-veg',
     tag:'chicken pizza'
 },
 {
-  name: 'Double Promo of 3 Regular Pizza For 200',
+  name: '2 Any Large Supreme Pizzas + 2 Cold Drinks + 1 Peri Peri Fries',
   price: '209',
-  img: 'https://www.everydayonsales.com/wp-content/uploads/sites/5/2020/09/9d165228-b4bc-4498-b74f-a995823982ee.jpg',
+  img:bigCombo,
   category:'offer',
   type:'non-veg',
   tag:'chicken pizza'
@@ -34,7 +38,7 @@ function Offers() {
     <div className="cont-offers">
     {offer.map((item,index) =>
             item.img ? (
-              <Card item={item} key={index}/>
+              <Card item={item} key={item.name}/>
             ) : (
               ""
             )

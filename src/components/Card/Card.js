@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import StarHalfIcon from "@mui/icons-material/StarHalf";
-import {useNavigate } from "react-router-dom";
 import { Context } from "../../context/Context";
 import "./Card.css";
 import axios from "axios";
@@ -59,7 +58,7 @@ function Card({ item, index }) {
           <p>{item.ingridient ? item.ingridient.substring(0, 10) : ''}</p>
           <p className="price">₹{item.price}</p>
         </div>
-        {cart.some((cartItem) => cartItem._id === item._id) ? (
+        {cart.some((cartItem) => cartItem.name === item.name) ? (
           <button className="added"> 
           {/* onClick={() => deleteItem(item)} */}
           {/* onClick={() => navigate("/cart")} */}

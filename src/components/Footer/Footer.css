@@ -69,10 +69,11 @@
     font-weight: 400;
     font-size: 18px;
 }
-.links a{
+.links .footer-l{
     color: gray;
+    font-size: 17px;
 }
-.links a:hover{
+.links .footer-l:hover{
     color:rgb(81, 81, 81);
     cursor: pointer;
 }

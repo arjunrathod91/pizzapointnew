@@ -19,30 +19,30 @@ function Footer() {
         <div className='all-links'>
           <div className='links'>
             <span>About Pizzapoint</span>
-            <a>Who We Are</a>
-            <a>Blog</a>
-            <a>Contact Us</a>
-            <a>Home</a>
+            <span className="footer-l">Who We Are</span>
+            <span className="footer-l">Blog</span>
+            <span className="footer-l">Contact Us</span>
+            <span className="footer-l">Home</span>
           </div>
           <div className='links'>
             <span>Learn More</span>
-            <a>Terms</a>
-            <a>Privacy</a>
-            <a>Policy</a>
+            <span className="footer-l">Terms</span>
+            <span className="footer-l">Privacy</span>
+            <span className="footer-l">Policy</span>
           </div>
           <div className='links'>
             <span>All Links</span>
-            <a>Home</a>
-            <a>Meals</a>
-            <a>Outlets</a>
-            <a>Offers</a>
+            <span className="footer-l">Home</span>
+            <span className="footer-l">Meals</span>
+            <span className="footer-l">Outlets</span>
+            <span className="footer-l">Offers</span>
           </div>
           <div className='links'>
             <span>Social Links</span>
-            <a>Instagram</a>
-            <a>Youtube</a>
-            <a>Zomato</a>
-            <a>Swiggy</a>
+            <span classname="footer-l">Instagram</span>
+            <span classname="footer-l">Youtube</span>
+            <span classname="footer-l">Zomato</span>
+            <span classname="footer-l">Swiggy</span>
           </div>
         </div>
       </div>

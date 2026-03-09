@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect} from "react";
 import "./Cart.css";
 import { Context } from "../../context/Context";
 import { useNavigate } from "react-router-dom";
@@ -127,35 +127,35 @@ function Cart() {
     }
   };
 
-  const handlePayment = () => {
-    const options = {
-      key: "rzp_test_HY5jMRQoTZLe2y", // Enter your Razorpay Key ID
-      amount: `${total * 100}`, // Amount in paise (50000 paise = 500 INR){newPrice}
-      currency: "INR",
-      name: "Pizza Point",
-      description: "Test Transaction",
-      //   order_id:`order_${uuid.split('-')[0]}`,
-      image: `${logo}`, // Optional: Add your logo URL
-      handler: function (response) {
-        navigate("/orderdetails");
-        alert(`Payment successful: ${response.razorpay_payment_id}`);
-      },
-      prefill: {
-        name: "Arjun", //{username}
-        email: "arjunrathod@gamil.com", //{email}
-        contact: "7350887544", //{contact}
-      },
-      notes: {
-        address: "wadgaon",
-      },
-      theme: {
-        color: "#fff",
-      },
-    };
+  // const handlePayment = () => {
+  //   const options = {
+  //     key: "rzp_test_HY5jMRQoTZLe2y", // Enter your Razorpay Key ID
+  //     amount: `${total * 100}`, // Amount in paise (50000 paise = 500 INR){newPrice}
+  //     currency: "INR",
+  //     name: "Pizza Point",
+  //     description: "Test Transaction",
+  //     //   order_id:`order_${uuid.split('-')[0]}`,
+  //     image: `${logo}`, // Optional: Add your logo URL
+  //     handler: function (response) {
+  //       navigate("/orderdetails");
+  //       alert(`Payment successful: ${response.razorpay_payment_id}`);
+  //     },
+  //     prefill: {
+  //       name: "Arjun", //{username}
+  //       email: "arjunrathod@gamil.com", //{email}
+  //       contact: "7350887544", //{contact}
+  //     },
+  //     notes: {
+  //       address: "wadgaon",
+  //     },
+  //     theme: {
+  //       color: "#fff",
+  //     },
+  //   };
 
-    const rzp = new window.Razorpay(options);
-    rzp.open();
-  };
+  //   const rzp = new window.Razorpay(options);
+  //   rzp.open();
+  // };
 
   useEffect(() => {
     if (cart.length === 0) {

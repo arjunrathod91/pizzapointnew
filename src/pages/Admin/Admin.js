@@ -11,10 +11,10 @@ function Admin() {
   const [section, setSection] = useState("Orders");
   const {rightSec, setRIghtSec } = useContext(Context);
   const isMobile = useMediaQuery("(max-width:600px)");
-  const [zIndexLeft, setZiNdexLeft] = useState("1");
-  const [zIndexRight, setZiNdexRight] = useState("2");
-  const [width, setWidth] = useState("100%");
-  const [position, setPosition] = useState("absolute");
+  const [, setZiNdexLeft] = useState("1");
+  const [, setZiNdexRight] = useState("2");
+  const width="100%";
+  const position="absolute";
   
 
 
@@ -36,6 +36,8 @@ function Admin() {
         return <OrdersPage />;
       case "Menu":
         return <MenuPage />;
+      default:
+        return null;  
     }
   };
 

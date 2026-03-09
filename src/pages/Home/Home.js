@@ -24,9 +24,9 @@ function Home({open}) {
     // sidebarOpen,
     // setSidebarOpen,
     // cart,
-    setCart,
+    // setCart,
     // total,
-    setTotal,
+    // setTotal,
     // category,
     setCategory,
   } = useContext(Context);
@@ -48,7 +48,7 @@ function Home({open}) {
   const [activeIndex, setActiveIndex] = useState("0");
   const [allItems, setAllItems] = useState([]);
   const [loadMore, setLoadMore] = useState(10);
-  const [close,setClose] = useState(false);
+  // const [close,setClose] = useState(false);
 
   const transition = (newImg) => {
     setStyle({
@@ -110,6 +110,7 @@ function Home({open}) {
           <div className="controls">
             <div
               className={`ball ${activeIndex === "0" ? "active" : ""}`}
+              style={{ cursor: "pointer" }}
               onClick={() => {
                 transition(imgSrc[0]);
                 setActiveIndex("0");
@@ -117,6 +118,7 @@ function Home({open}) {
             ></div>
             <div
               className={`ball ${activeIndex === "1" ? "active" : ""}`}
+              style={{ cursor: "pointer" }}
               onClick={() => {
                 transition(imgSrc[1]);
                 setActiveIndex("1");
@@ -124,6 +126,7 @@ function Home({open}) {
             ></div>
             <div
               className={`ball ${activeIndex === "2" ? "active" : ""}`}
+              style={{ cursor: "pointer" }}
               onClick={() => {
                 transition(imgSrc[2]);
                 setActiveIndex("2");

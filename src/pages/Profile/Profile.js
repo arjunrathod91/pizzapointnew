@@ -9,19 +9,21 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import { useMediaQuery } from "@mui/material";
 function Profile() {
   const [section, setSection] = useState("Orders");
-  const { loggedIn, setLoggedIn, rightSec, setRIghtSec } = useContext(Context);
+  const { loggedIn,rightSec, setRIghtSec } = useContext(Context);
   const isMobile = useMediaQuery("(max-width:600px)");
-  const [zIndexLeft, setZiNdexLeft] = useState("1");
-  const [zIndexRight, setZiNdexRight] = useState("2");
-  const [width, setWidth] = useState("100%");
-  const [position, setPosition] = useState("absolute");
+  const [, setZiNdexLeft] = useState("1");
+  const [, setZiNdexRight] = useState("2");
+  const width= "100%";
+  const position = "absolute";
   const renderSection = () => {
     switch (section) {
-      case "Orders":
-        return <Orders />;
-      case "Profile":
-        return <Info />;
-    }
+  case "Orders":
+    return <Orders />;
+  case "Profile":
+    return <Info />;
+  default:
+    return null;
+}
   };
 
   const navigate = useNavigate();

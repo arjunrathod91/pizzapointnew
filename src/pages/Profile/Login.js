@@ -7,9 +7,9 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import LockIcon from "@mui/icons-material/Lock";
 import axios from "axios";
 
-function Login({}) {
+function Login() {
   const navigate = useNavigate();
-  const { setLoggedIn,profileDetails,setProfileDetails} = useContext(Context);
+  const { setLoggedIn} = useContext(Context);
   const [inputEmail,setInputEmail] = useState();
   const [inputPassword,setInputPassword] = useState()
 

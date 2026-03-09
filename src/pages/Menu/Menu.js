@@ -5,7 +5,7 @@ import { Context } from "../../context/Context";
 import Card from "../../components/Card/Card";
 
 function Menu() {
-  const { category, setCategory } = useContext(Context);
+  const { category} = useContext(Context);
 
   // const press = () => {
   //   console.log(allItems);

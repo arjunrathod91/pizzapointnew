@@ -1,10 +1,9 @@
-import React, { useContext} from 'react'
+import React from 'react'
 import './Navbar.css'
 import logo from '../../Images/logo.png'
 import { Link } from 'react-router-dom'
 import MenuIcon from '@mui/icons-material/Menu';
 import Sidebar from '../Sidebar/Sidebar';
-import { Context } from '../../context/Context';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import WestIcon from '@mui/icons-material/West';
 import PersonIcon from '@mui/icons-material/Person';
