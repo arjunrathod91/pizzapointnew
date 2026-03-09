@@ -5,7 +5,6 @@ import Home from './pages/Home/Home'
 import Outlet from './pages/Outlet/Outlet'
 import Menu from './pages/Menu/Menu'
 import Offers from './pages/Offers/Offers'
-import Admin from './pages/Admin/Admin'
 import { MyContextProvider } from './context/Context'
 import Cart from './pages/Cart/Cart'
 import Login from './pages/Profile/Login'
@@ -40,7 +39,6 @@ function App() {
         <Route path='/outlet' element={<Outlet/>}/>
         <Route path='/menu' element={<Menu/>}/>
         <Route path='/offers' element={<Offers/>}/>
-        <Route path='/admin' element={<Admin/>}/>
         <Route path='/cart' element={<Cart/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/signup' element={<Signup/>}/>
