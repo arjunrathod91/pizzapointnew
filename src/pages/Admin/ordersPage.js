@@ -16,13 +16,13 @@ function OrdersPage() {
   };
 
   const [newOrders, setNewOrders] = useState({});
-  const [, setLoading] = useState(true);
+  // const [, setLoading] = useState(true);
 
   const newOrder = () => {
     const fetch = async () => {
       try {
         const response = await axios.get(
-          "https://pizzapointserver-1.onrender.com/newOrder"
+          "https://pizzapointserver.onrender.com/newOrder"
         );
         setNewOrders(response.data[[response.data.length - 1]]);
       } catch (err) {
@@ -36,7 +36,7 @@ function OrdersPage() {
     const fetch = async () => {
       try {
         const response = await axios.get(
-          "https://pizzapointserver-1.onrender.com/allOrders"
+          "https://pizzapointserver.onrender.com/allOrders"
         );
         setAllOrders(response.data);
       } catch (err) {
@@ -48,7 +48,7 @@ function OrdersPage() {
 
   const accept = async () => {
     axios
-      .post("https://pizzapointserver-1.onrender.com/allOrders", newOrders)
+      .post("https://pizzapointserver.onrender.com/allOrders", newOrders)
       .then((response) => {
         console.log("Response:", response.data); // Log the response data
       })
@@ -72,7 +72,7 @@ function OrdersPage() {
   const cancel = () => {
     console.log(newOrders._id)
     axios
-      .delete("https://pizzapointserver-1.onrender.com/newOrder", {
+      .delete("https://pizzapointserver.onrender.com/newOrder", {
         data: { id: newOrders._id }, // pass the order ID in the body
       })
       .then((response) => {
@@ -85,15 +85,13 @@ function OrdersPage() {
   // const cancel = () => {};
 
   useEffect(() => {
-    // async function fetchData() {
-    //   setLoading(true); // Start loading
-    //   await newOrder(); // Fetch your data
-    //   await latestOrder();
-    //   setLoading(false); // Stop loading
-    // }
-    newOrder();
-    latestOrder();
-  }, [newOrders, allorders,latestOrder, newOrder]);
+  const fetchData = async () => {
+    await newOrder();
+    await latestOrder();
+  };
+
+  fetchData();
+}, []);
 
 
   return (
