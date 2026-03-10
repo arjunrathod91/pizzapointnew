@@ -2,9 +2,9 @@ import React, { useContext, useEffect} from "react";
 import "./Cart.css";
 import { Context } from "../../context/Context";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-import axios from "axios";
 
 function Cart() {
   const {

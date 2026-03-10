@@ -16,6 +16,9 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../../context/Context";
 import Card from "../../components/Card/Card";
 import axios from "axios";
+import sliderImg1 from "../../Images/Slider/slider1.png"
+import sliderImg2 from "../../Images/Slider/slider2.png"
+import sliderImg3 from "../../Images/Slider/slider3.png"
 // import { Troubleshoot } from "@mui/icons-material";
 
 function Home({open}) {
@@ -38,9 +41,9 @@ function Home({open}) {
   //   setTotal((prevTotal) => prevTotal + Number(item.price));
   // };
   const imgSrc = [
-    "https://static.vecteezy.com/system/resources/previews/023/961/870/original/pizza-banner-or-background-pizza-on-the-board-illustration-vector.jpg",
-    "https://th.bing.com/th/id/OIP.FFmT5wGpju1U9siFEF8lmAHaJl?w=535&h=693&rs=1&pid=ImgDetMain",
-    "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/cheese-pizza-ads-design-template-2fa7920016ef784e5897f4d95e281386_screen.jpg?ts=1691136569",
+    sliderImg1,
+    sliderImg2,
+    sliderImg3
   ];
 
   const [sliderImg, setSliderImg] = useState(imgSrc[0]);

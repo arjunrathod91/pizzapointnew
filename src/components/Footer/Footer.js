@@ -39,10 +39,10 @@ function Footer() {
           </div>
           <div className='links'>
             <span>Social Links</span>
-            <span classname="footer-l">Instagram</span>
-            <span classname="footer-l">Youtube</span>
-            <span classname="footer-l">Zomato</span>
-            <span classname="footer-l">Swiggy</span>
+            <span className="footer-l">Instagram</span>
+            <span className="footer-l">Youtube</span>
+            <span className="footer-l">Zomato</span>
+            <span className="footer-l">Swiggy</span>
           </div>
         </div>
       </div>
