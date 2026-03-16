@@ -30,7 +30,6 @@ function Orders() {
                 <p>{item.ingridient}</p>
                 <h2>₹{item.price}</h2>
                 <p>{item.type}</p>
-                <p>{item.date}</p>
               </div>
             </div>
           </div>

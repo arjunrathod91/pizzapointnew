@@ -10,7 +10,7 @@ function Login() {
   const navigate = useNavigate();
   const { setLoggedIn} = useContext(Context);
   const [inputEmail,setInputEmail] = useState();
-  const [inputPassword,setInputPassword] = useState()
+  const [inputPassword,setInputPassword] = useState();
 
   const handleBtn = async ()=>{
     const fetchMenu = async () => {

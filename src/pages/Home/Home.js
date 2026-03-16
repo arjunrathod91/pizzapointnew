@@ -7,6 +7,8 @@ import burger from "../../Images/burger.jpg";
 import momos from "../../Images/momos.png";
 import sandwitch from "../../Images/sandwitch.jpg";
 import fries from "../../Images/fries.webp";
+import Skeleton from "@mui/material/Skeleton";
+import Box from "@mui/material/Box";
 // import telephone from "../../Images/telephone.png";
 // import delivary from "../../Images/delivery-bike.png";
 // import veggieSupreme from "../../Images/veggie supreme.jpg";
@@ -51,6 +53,10 @@ function Home({open}) {
   const [activeIndex, setActiveIndex] = useState("0");
   const [allItems, setAllItems] = useState([]);
   const [loadMore, setLoadMore] = useState(10);
+
+  const [inputName,setInputName] = useState();
+  const [inputReview,setInputReview] = useState();
+  const [reviews,setReviews] = useState();
   // const [close,setClose] = useState(false);
 
   const transition = (newImg) => {
@@ -69,6 +75,50 @@ function Home({open}) {
     }, 200);
   };
 
+ const pushReview = () => {
+  // console.log("button pressed");
+  const pushData = {
+    username: inputName,
+    review: inputReview
+  };
+// console.log(pushData);
+  axios
+    .post("https://pizzapointserver.onrender.com/reviews", pushData)
+    .then((response) => {
+      console.log("Review submitted successfully:", response.data);
+
+      alert("Your review is submitted.");
+
+      // clear inputs AFTER success
+      setInputName("");
+      setInputReview("");
+    })
+    .catch((error) => {
+      console.error("There was an error", error);
+    });
+};
+
+  const newReviews = [
+    {
+      name: "Sneha Jadhav",
+      review:
+        "Ordered late at night and the pizza arrived hot and fresh. The cheese was perfectly melted and the packaging was great. Highly recommended!",
+
+    },
+    {
+      name: "Rahul Jadhav",
+      review:
+        "Ordered late at night and the pizza arrived hot and fresh. The cheese was perfectly melted and the packaging was great. Highly recommended!",
+        
+    },
+    {
+      name: "Karan Rathod",
+      review:
+        "Ordered late at night and the pizza arrived hot and fresh. The cheese was perfectly melted and the packaging was great. Highly recommended!",
+        
+    }
+  ]
+
   useEffect(() => {
     const fetchMenu = async () => {
       try {
@@ -83,7 +133,20 @@ function Home({open}) {
       }
     };
 
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get(
+          "https://pizzapointserver.onrender.com/reviews"
+          // "http://localhost:8000/allItems"
+        );
+        setReviews(response.data);
+      } catch (err) {
+        console.error("Error fetching menu data:", err);
+        console.log(err);
+      }
+    };
     fetchMenu();
+    fetchReviews();
   }, []);
 
   const categoryClick = (item) => {
@@ -230,9 +293,25 @@ function Home({open}) {
               )
             )
           ) : (
-            <div className="loading">
-              <img src="https://icon-library.com/images/burger-icon-png/burger-icon-png-1.jpg" alt="" />
-              <div style={{ marginLeft: "5px" }}>Loading ...</div>
+             <div className="s2-down" style={{display:'flex',gap:'30px'}}>
+             <Box>
+              <Skeleton variant="rectangular" width={210} height={118} />
+              {/* <Skeleton /> */}
+              <Skeleton width="60%" />
+               <Skeleton width="60%" />
+            </Box>
+            <Box>
+              <Skeleton variant="rectangular" width={210} height={118} />
+              {/* <Skeleton /> */}
+              <Skeleton width="60%" />
+               <Skeleton width="60%" />
+            </Box>
+            <Box>
+              <Skeleton variant="rectangular" width={210} height={118} />
+              {/* <Skeleton /> */}
+              <Skeleton width="60%" />
+               <Skeleton width="60%" />
+            </Box>
             </div>
           )}
         </div>
@@ -266,50 +345,35 @@ function Home({open}) {
       <section className="reviews">
         <div className="heads"> Reviews</div>
         <div className="block">
-          <div className="review">
-            {/* <img
-              src="https://th.bing.com/th/id/R.401e039791cb60a99db7574995b20ac5?rik=rp30JJuIzeQdWg&riu=http%3a%2f%2fwww.dailyexcelsior.com%2fwp-content%2fuploads%2f2018%2f12%2fShahrukh-Khan.jpg&ehk=6AraZHbQ%2fZ2Gti88ZqaMmCK05C74TjyOsO%2buVFCUT3I%3d&risl=&pid=ImgRaw&r=0"
-              alt=""
-            /> */}
-            {/* <div>Rating</div> */}
+          {reviews ? reviews.map((item, index) => (
+            <div className="review" key={index}>
             <p>
-              "Ordered late at night and the pizza arrived hot and fresh. The cheese was perfectly melted and the packaging was great. Highly recommended!""
-            </p>
+              {item.review}
+            </p>  
             <div className="name-box">
-            <p className="name">- Sneha Jadhav</p>
+            <p className="name">- {item.username}</p>
             </div>
           </div>
-          <div className="review">
-            {/* <img
-              src="https://th.bing.com/th/id/R.401e039791cb60a99db7574995b20ac5?rik=rp30JJuIzeQdWg&riu=http%3a%2f%2fwww.dailyexcelsior.com%2fwp-content%2fuploads%2f2018%2f12%2fShahrukh-Khan.jpg&ehk=6AraZHbQ%2fZ2Gti88ZqaMmCK05C74TjyOsO%2buVFCUT3I%3d&risl=&pid=ImgRaw&r=0"
-              alt=""
-            /> */}
-            {/* <div>Rating</div> */}
-            <p>
-              “Great experience overall. Friendly service and quick delivery. The garlic bread and pizza combo was amazing.”
-            </p>
-            <div className="name-box">
-            <p className="name">- Rahul Pawar</p>
-            </div>
-          </div>
-          <div className="review">
-            {/* <img
-              src="https://th.bing.com/th/id/R.401e039791cb60a99db7574995b20ac5?rik=rp30JJuIzeQdWg&riu=http%3a%2f%2fwww.dailyexcelsior.com%2fwp-content%2fuploads%2f2018%2f12%2fShahrukh-Khan.jpg&ehk=6AraZHbQ%2fZ2Gti88ZqaMmCK05C74TjyOsO%2buVFCUT3I%3d&risl=&pid=ImgRaw&r=0"
-              alt=""
-            /> */}
-            {/* <div>Rating</div> */}
-            <p>
-              "One of the best pizzas I’ve had recently. The crust was perfectly baked and the toppings tasted very fresh. Definitely ordering again from PizzaPoint!"
-            </p>
-            <div className="name-box">
-            <p className="name">- Avinash Kumar</p>
-            </div>
-          </div>
+          )) : (<>No Reviews</>)}
         </div>
       </section>
-      {/* <section className="write-review"> */}
-        {/* <h2>Write a Review</h2> */}
-        {/* <div >
+      <section className="write-review">
+        <div className="heads"> Write a Review</div>
+        <div className="write-block">
+          {/* <div>
+            <input placeholder="Email" name="email" />
+          </div> */}
+          <div>
+            <input placeholder="Username" onChange={(e)=>setInputName(e.target.value)} value={inputName} />
+          </div>
+          <div>
+            <textarea placeholder="Message" rows={5} onChange={(e)=>setInputReview(e.target.value)} value={inputReview} />
+          </div>
+           <button style={{cursor:'pointer'}} onClick={pushReview}>Submit</button>
+
+        </div>
+         {/* <h2>Write a Review</h2>
+        <div >
           <input type="text" placeholder="Your Name" />
           <input type="text" placeholder="Your Email" />
           <textarea
@@ -319,7 +383,7 @@ function Home({open}) {
           ></textarea>
           <button>Submit</button>
         </div> */}
-      {/* </section> */}
+      </section>
       <Footer />
 
     </div>

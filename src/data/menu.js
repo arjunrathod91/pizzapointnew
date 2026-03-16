@@ -34,7 +34,7 @@ const allItems = [
         ingridient: 'Supreme pizza with topping onion, tomato, red paprika, marinated chicken tikka and mozzarella cheese.',
         rating: 4.4,
         price: '189',
-        img: '',
+        img: 'https://b.zmtcdn.com/data/dish_photos/626/6d07c300c676281803f7b2965f1d0626.jpg?fit=around|130:130&crop=130:130;*,*',
         category:'pizza',
         type:'non-veg',
         tag:'chicken tikka pizza'
@@ -168,7 +168,7 @@ const allItems = [
         ingridient: 'Loaded with mozzarella cheese and loaded with veggies and paneer with spicy and delicious taste.',
         rating: 4.4,
         price: '250',
-        img: '',
+        img: 'https://b.zmtcdn.com/data/dish_photos/49a/f56d022322d0a28f45c534bb6a72849a.jpg?fit=around|130:130&crop=130:130;*,*',
         category:'pizza',
         type:'veg',
         tag:'cheese burst pizza'
@@ -211,7 +211,7 @@ const allItems = [
         ingridient: 'Classic chicken burger, grill with butter and delicious taste.',
         rating: 4.4,
         price: '99',
-        img: '',
+        img: 'https://b.zmtcdn.com/data/dish_photos/2b6/6253405a4242c73fef8e07133098b2b6.jpg?fit=around|130:130&crop=130:130;*,*',
         category:'burger',
         type:'non-veg',
         tag:'grilled burger'
@@ -221,7 +221,7 @@ const allItems = [
         ingridient: '',
         rating: 4.4,
         price: '99',
-        img: '99',
+        img: 'https://b.zmtcdn.com/data/dish_photos/980/d6b5406bbb13ce5e12a0c8b99969d980.jpg?fit=around|130:130&crop=130:130;*,*',
         category:'burger',
         type:'veg',
         tag:'tandoori burger'

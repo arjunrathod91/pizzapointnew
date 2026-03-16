@@ -14,13 +14,17 @@ function Signup() {
     useContext(Context);
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [contact, setContact] = useState();
-  const [address, setAddress] = useState();
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [contact, setContact] = useState("");
+  const [address, setAddress] = useState("");
 
   const handleBtn = () => {
+    if (!username || !email || !password || !contact || !address) {
+    alert("Please fill all fields");
+    return;
+  }
       const user = {
         "username":username,
         "email":email,
@@ -32,13 +36,13 @@ function Signup() {
         .post("https://pizzapointserver.onrender.com/userDetail", user)
         .then((response) => {
           console.log(response.data);
+           alert("Signup Successfully!");
+           navigate("/profile");
         })
         .catch((error) => {
           console.error("There was an error", error);
           alert("Failed to signup.");
         });
-        alert("Signup Successfully!");
-        navigate("/profile");
   };
 
   return (
@@ -54,6 +58,7 @@ function Signup() {
           <input
             type="text"
             placeholder="username"
+            value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
@@ -64,6 +69,7 @@ function Signup() {
           <input
             type="text"
             placeholder="Email"
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
@@ -74,6 +80,7 @@ function Signup() {
           <input
             type="password"
             placeholder="Password"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
@@ -84,6 +91,7 @@ function Signup() {
           <input
             type="text"
             placeholder="Contact"
+            value={contact}
             onChange={(e) => setContact(e.target.value)}
           />
         </div>
