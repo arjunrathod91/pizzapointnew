@@ -13,18 +13,17 @@ function Orders() {
   const isMobile = useMediaQuery("(max-width:600px)");
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    const user = JSON.parse(localStorage.getItem("user"));
-    if(user){
-      setUserDetails(user);
-    }
-    console.log("user Details: ", userDetails);
-    console.log(loggedIn);
-  })
+ useEffect(() => {
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  if (user) {
+    setUserDetails(user);
+  }
+}, []);
 
 useEffect(() => {
   setLoggedIn(localStorage.getItem("loggedInStatus"));
-}, []);
+}, [setLoggedIn]);
 
 useEffect(() => {
   if (loggedIn !== "true") {

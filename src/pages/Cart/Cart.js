@@ -96,7 +96,7 @@ function Cart() {
     if (cart.length === 0) {
       setTotal(0);
     }
-  },[cart]);
+  },[cart,setTotal]);
   // useEffect(() => {
   //   if(user){
   //     setCart(user.cart.items);
@@ -110,7 +110,7 @@ function Cart() {
     setCart(storedUser.cart.items);
     // setTotal(storedUser.cart.total);
   }
-}, []);
+}, [setCart]);
 //   useEffect(() => {
 //   if (user && user.cart) {
 //     setCart((prevCart) => {

@@ -154,9 +154,9 @@ function Home({ open }) {
     if(status){
       setLoggedIn(status);
     }
-    console.log(loggedIn);
-    console.log(userDetails);
-    console.log("status",status);
+    // console.log(loggedIn);
+    // console.log(userDetails);
+    // console.log("status",status);
   },[]);
 
   const categoryClick = (item) => {

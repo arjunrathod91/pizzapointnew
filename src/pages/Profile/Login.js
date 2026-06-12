@@ -127,7 +127,7 @@ function Login() {
   useEffect(() => {
   const loggedInStatus = localStorage.getItem("loggedInStatus");
   setLoggedIn(loggedInStatus);
-}, []);
+}, [setLoggedIn]);
   
     useEffect(() => {
       if (loggedIn === 'true') {

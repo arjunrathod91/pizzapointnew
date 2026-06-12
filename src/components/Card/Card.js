@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import StarHalfIcon from "@mui/icons-material/StarHalf";
 import { Context } from "../../context/Context";
 import "./Card.css";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 // import axios from "axios";
 
 function Card({ item, index }) {

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext} from "react";
 import "../Menu/Menu.css";
 import allItems from "../../data/menu";
 import { Context } from "../../context/Context";
