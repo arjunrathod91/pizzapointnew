@@ -3,15 +3,15 @@ import StarHalfIcon from "@mui/icons-material/StarHalf";
 import { Context } from "../../context/Context";
 import "./Card.css";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 
 function Card({ item, index }) {
-  const { setCart, setTotal, cart, loggedIn,userDetails,setUserDetails } = useContext(Context);
-  const navigate = useNavigate();
+  const { setCart, setTotal, cart, loggedIn } = useContext(Context);
+  // const navigate = useNavigate();
 
   const user = JSON.parse(localStorage.getItem("user"));
-  const newCart = JSON.parse(localStorage.getItem("cart")) || [];
-  const newTotal = JSON.parse(localStorage.getItem("total")) || 0;
+  // const newCart = JSON.parse(localStorage.getItem("cart")) || [];
+  // const newTotal = JSON.parse(localStorage.getItem("total")) || 0;
 
   const cartObj = async (item) => {
     // setCart((prevCart) => {

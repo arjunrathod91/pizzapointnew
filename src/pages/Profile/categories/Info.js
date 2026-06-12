@@ -12,7 +12,7 @@ function Info() {
   useEffect(()=>{
     const user = JSON.parse(localStorage.getItem("user"));
     setUserDetails(user);
-  },[])
+  })
 
   return (
     <div className="info">

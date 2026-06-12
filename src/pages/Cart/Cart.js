@@ -12,13 +12,13 @@ function Cart() {
     total,
     setTotal,
     loggedIn,
-    userDetails,setUserDetails
+    // userDetails,setUserDetails
   } = useContext(Context);
 
   const navigate = useNavigate();
 
   const user = JSON.parse(localStorage.getItem("user"));
-  const newCart = JSON.parse(localStorage.getItem("cart")) || [];
+  // const newCart = JSON.parse(localStorage.getItem("cart")) || [];
   const newTotal = JSON.parse(localStorage.getItem("total")) || 0;
 
   const deleteItem = (item) => {
@@ -96,7 +96,7 @@ function Cart() {
     if (cart.length === 0) {
       setTotal(0);
     }
-  },[]);
+  },[cart]);
   // useEffect(() => {
   //   if(user){
   //     setCart(user.cart.items);

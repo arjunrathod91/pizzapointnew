@@ -16,7 +16,7 @@ function Profile() {
   const [, setZiNdexRight] = useState("2");
   const width = "100%";
   const position = "absolute";
-  const user = JSON.parse(localStorage.getItem("user"));
+  // const user = JSON.parse(localStorage.getItem("user"));
   const renderSection = () => {
     switch (section) {
       case "Orders":
@@ -51,14 +51,14 @@ function Profile() {
       const loggedInStatus = localStorage.getItem("loggedInStatus");
       console.log("loggedInStatus: ", loggedInStatus);
       setLoggedIn(loggedInStatus);
-  }, []);
+  });
 
   useEffect(() => {
     if (loggedIn === 'false') {
       navigate("/login");
       console.log(loggedIn);
     }
-  }, []);
+  },[loggedIn,navigate]);
   return (
     <div className="profile">
       <div

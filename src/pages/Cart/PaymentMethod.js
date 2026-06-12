@@ -9,7 +9,7 @@ function PaymentMethod() {
   const [orderType, setOrderType] = useState("");
   const billObj = JSON.parse(localStorage.getItem("newOrder")) || [];
   const user = JSON.parse(localStorage.getItem("user"));
-  const newCart = JSON.parse(localStorage.getItem("cart")) || [];
+  // const newCart = JSON.parse(localStorage.getItem("cart")) || [];
   const newTotal = JSON.parse(localStorage.getItem("total"));
   const navigate = useNavigate();
   const {
@@ -17,7 +17,7 @@ function PaymentMethod() {
     setCart,
     total,
     setTotal,
-    userDetails, setUserDetails
+    // userDetails, setUserDetails
   } = useContext(Context);
 
   const handlePayment = () => {
@@ -166,7 +166,7 @@ function PaymentMethod() {
       setCart(user.cart.items);
       setTotal(user.cart.total);
     }
-  }, []);
+  },[]);
 
   return (
     <div className="payment-method">

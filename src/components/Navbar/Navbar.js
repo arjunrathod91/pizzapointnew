@@ -13,8 +13,9 @@ import { useLocation } from 'react-router-dom';
 function Navbar({open,setOpen}) {
   // const [open,setOpen] = useState(false)
     const {
-    setCategory, //use this
-    userDetails, setUserDetails,loggedIn,setLoggedIn
+    // setCategory,
+    // userDetails, setUserDetails,
+    loggedIn
   } = useContext(Context);
   const location = useLocation();
   return (

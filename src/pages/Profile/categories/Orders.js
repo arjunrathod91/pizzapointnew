@@ -20,16 +20,17 @@ function Orders() {
     }
     console.log("user Details: ", userDetails);
     console.log(loggedIn);
-  },[])
+  })
 
-  useEffect(() => {
-      const loggedInStatus = localStorage.getItem("loggedInStatus");
-      setLoggedIn(loggedInStatus);
-      if (!loggedIn) {
-        navigate("/login");
-        console.log(loggedIn);
-      }
-    },[]);
+useEffect(() => {
+  setLoggedIn(localStorage.getItem("loggedInStatus"));
+}, []);
+
+useEffect(() => {
+  if (loggedIn !== "true") {
+    navigate("/login");
+  }
+}, [loggedIn, navigate]);
   return (
     <div className="orders">
       {isMobile ? (

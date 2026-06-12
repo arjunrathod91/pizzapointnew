@@ -13,7 +13,7 @@ function Menu() {
 
   const categoryItems = allItems.filter((item) => item.category === category);
 
-  useEffect(() => {}, []);
+  // useEffect(() => {}, []);
 
   const capitalizeFirstLetter = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);

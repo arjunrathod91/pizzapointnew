@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function OrderPlaced() {
   const navigate = useNavigate();
-   const { cart, setCart,userDetails,setUserDetails} = useContext(Context);
+   const { cart, setCart} = useContext(Context);
    const user = JSON.parse(localStorage.getItem("user"));
 
    const userUpdateCart = ()=> {

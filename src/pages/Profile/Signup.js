@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext,useState } from "react";
 import "./profile.css";
 import { Context } from "../../context/Context";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import axios from "axios";
 
 function Signup() {
-  const { setLoggedIn, cart, total, userDetails, setUserDetails, loggedIn } =
+  const { setLoggedIn, cart, total, setUserDetails} =
     useContext(Context);
   const navigate = useNavigate();
 

@@ -8,7 +8,7 @@ import axios from "axios";
 
 function Login() {
   const navigate = useNavigate();
-  const { setLoggedIn,loggedIn, cart, total,userDetails,setUserDetails } = useContext(Context);
+  const { setLoggedIn,loggedIn, cart, total,setUserDetails } = useContext(Context);
   const [inputEmail, setInputEmail] = useState();
   const [inputPassword, setInputPassword] = useState();
 
@@ -124,16 +124,16 @@ function Login() {
     }
   };
 
-    useEffect(() => {
-      const loggedInStatus = localStorage.getItem("loggedInStatus");
-      setLoggedIn(loggedInStatus);
-    }, []);
+  useEffect(() => {
+  const loggedInStatus = localStorage.getItem("loggedInStatus");
+  setLoggedIn(loggedInStatus);
+}, []);
   
     useEffect(() => {
       if (loggedIn === 'true') {
         navigate("/profile");
       }
-    }, []);
+    }, [loggedIn, navigate]);
   return (
     <div className="login">
       <div className="login-box">

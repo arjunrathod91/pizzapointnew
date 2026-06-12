@@ -19,7 +19,7 @@ function Home({ open }) {
   const navigate = useNavigate();
   const {
     setCategory, //use this
-    userDetails, setUserDetails,loggedIn,setLoggedIn
+    userDetails,loggedIn,setLoggedIn
   } = useContext(Context);
   const imgSrc = [
     sliderImg1,
@@ -157,7 +157,7 @@ function Home({ open }) {
     console.log(loggedIn);
     console.log(userDetails);
     console.log("status",status);
-  }, []);
+  },[]);
 
   const categoryClick = (item) => {
     localStorage.setItem("category", item);
