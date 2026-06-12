@@ -166,7 +166,7 @@ function PaymentMethod() {
       setCart(user.cart.items);
       setTotal(user.cart.total);
     }
-  },[]);
+  },[user,setCart,setTotal]);
 
   return (
     <div className="payment-method">

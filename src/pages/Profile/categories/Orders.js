@@ -19,7 +19,7 @@ function Orders() {
   if (user) {
     setUserDetails(user);
   }
-}, []);
+}, [setUserDetails]);
 
 useEffect(() => {
   setLoggedIn(localStorage.getItem("loggedInStatus"));
