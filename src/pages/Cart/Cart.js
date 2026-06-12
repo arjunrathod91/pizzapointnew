@@ -84,7 +84,7 @@ function Cart() {
   const orderNowBtn = async () => {
     // console.log(total);
     if (loggedIn || user) {
-      if (newTotal > 0) {
+      if (total > 0) {
         navigate("/paymentmethod");
       }
     } else {
@@ -108,7 +108,7 @@ function Cart() {
 
   if (storedUser && storedUser.cart) {
     setCart(storedUser.cart.items);
-    setTotal(storedUser.cart.total);
+    // setTotal(storedUser.cart.total);
   }
 }, []);
 //   useEffect(() => {

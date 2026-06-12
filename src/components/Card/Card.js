@@ -94,11 +94,11 @@ function Card({ item, index }) {
           <p>{item.ingridient ? item.ingridient.substring(0, 10) : ''}</p>
           <p className="price">₹{item.price}</p>
         </div>
-        {newCart.some((cartItem) => cartItem.name === item.name) ? (
+        {cart.some((cartItem) => cartItem.name === item.name) ? (
           <button className="added">
             {/* onClick={() => deleteItem(item)} */}
             {/* onClick={() => navigate("/cart")} */}
-            Added To Cart *
+            Added To Cart
             {/* Go To Cart */}
           </button>
         ) : (
