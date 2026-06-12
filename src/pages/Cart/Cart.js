@@ -1,8 +1,7 @@
-import React, { useContext, useEffect} from "react";
+import React, { useContext, useEffect } from "react";
 import "./Cart.css";
 import { Context } from "../../context/Context";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 
@@ -13,155 +12,123 @@ function Cart() {
     total,
     setTotal,
     loggedIn,
-    setAllOrders,
-    profileDetails,
+    userDetails,setUserDetails
   } = useContext(Context);
 
-  const user = JSON.parse(localStorage.getItem("user"));
-
   const navigate = useNavigate();
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  const newCart = JSON.parse(localStorage.getItem("cart")) || [];
+  const newTotal = JSON.parse(localStorage.getItem("total")) || 0;
 
   const deleteItem = (item) => {
     const updatedItems = cart.filter((cartItem) => cartItem.name !== item.name);
     setCart(updatedItems);
-    setTotal((prev) => prev - item.price * item.quantity);
+    localStorage.setItem("cart", JSON.stringify(updatedItems));
+    setTotal((prev) => {
+      const updatedTotal = prev - item.price * item.quantity;
+      localStorage.setItem("total", JSON.stringify(updatedTotal));
+      return updatedTotal;
+    });
+    //update user cart in localStorage
+    const userUpdate = {
+      ...user,
+      cart: {
+        items: updatedItems,
+        total: newTotal - item.price * item.quantity
+      }
+    };
+    localStorage.setItem("user", JSON.stringify(userUpdate));
   };
 
   const increasingOrder = (item) => {
-    setCart((prevCart) =>
-      prevCart.map((cartItem) =>
+    setCart((prevCart) => {
+      const updatedCart = prevCart.map((cartItem) =>
         cartItem.name === item.name
           ? { ...cartItem, quantity: cartItem.quantity + 1 }
           : cartItem
-      )
-    );
-    setTotal((prevTotal) => prevTotal + Number(item.price));
+      );
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      return updatedCart;
+    });
+    setTotal((prevTotal) => {
+      const updatedTotal = prevTotal + Number(item.price);
+      localStorage.setItem("total", JSON.stringify(updatedTotal));
+      return updatedTotal;
+    });
   };
 
   const decreasingOrder = (item) => {
     if (item.quantity > 1) {
-      setCart((prevCart) =>
-        prevCart.map((cartItem) =>
-          cartItem.name === item.name
-            ? { ...cartItem, quantity: cartItem.quantity - 1 }
-            : cartItem
-        )
-      );
-      setTotal((prevTotal) => prevTotal - Number(item.price));
+      setCart((prevCart) => {
+        const updatedCart = prevCart
+          .map((cartItem) =>
+            cartItem.name === item.name
+              ? { ...cartItem, quantity: cartItem.quantity - 1 }
+              : cartItem
+          )
+          .filter((cartItem) => cartItem.quantity > 0);
+
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+        return updatedCart;
+      });
+
+      setTotal((prevTotal) => {
+        const updatedTotal = prevTotal - Number(item.price);
+        localStorage.setItem("total", JSON.stringify(updatedTotal));
+        return updatedTotal;
+      });
     }
   };
 
   const orderNowBtn = async () => {
-    if (loggedIn) {
-      if (total > 0) {
-        const currentDate = new Date().toLocaleString("en-IN", {
-          timeZone: "Asia/Kolkata",
-        });
-        const cartWithDate = cart.map((item) => ({
-          ...item,
-          date: currentDate,
-        }));
-        setAllOrders((prevOrders) => [...prevOrders, ...cartWithDate]);
-
-        const latestOrder = profileDetails;
-        latestOrder["latestOrder"] = cartWithDate;
-        latestOrder["total"] = total;
-        localStorage.setItem("newOrder", JSON.stringify(latestOrder));
-        const prevOrders = JSON.parse(localStorage.getItem("adminOrder")) || [];
-        localStorage.setItem(
-          "adminOrder",
-          JSON.stringify([...prevOrders, latestOrder])
-        );
-
-        const userUpdate = {
-          username: user.username,
-          email: user.email,
-          password: user.password,
-          contact: user.contact,
-          address: user.address,
-          cart: cart,
-          order: cart,
-        };
-        const userOrder = {
-          username: user.username,
-          email: user.email,
-          password: user.password,
-          contact: user.contact,
-          address: user.address,
-          order: cart,
-          total:total
-        };
-        try {
-          const response1 = await axios.put(
-            "https://pizzapointserver.onrender.com/userDetail",
-            userUpdate
-          );
-          navigate("/paymentmethod");
-          console.log("Order updated successfully:", response1.data);
-        } catch (error) {
-          console.log(error);
-        }
-
-        try {
-          const response = await axios.post(
-            "https://pizzapointserver.onrender.com/newOrder",
-            userOrder
-          );
-          console.log("the data of user sent successfully:", response.data);
-        } catch (error) {
-          console.log(error);
-        }
-
-        // setNewOrder(latestOrder)
-        // setAdminOrders((prevOrders) => [...prevOrders, newOrder])
-        // console.log(newOrder)
-        // console.log(adminOrders)
-        // const latestOrder = newOrder.map((item)=>{
-        //   //wanted to add user detail like name and
-        // })
-        // setAdminOrders((prevOrders) => [...prevOrders, ...latestOrder])
-        // handlePayment();
+    // console.log(total);
+    if (loggedIn || user) {
+      if (newTotal > 0) {
+        navigate("/paymentmethod");
       }
     } else {
       navigate("/profile");
     }
   };
 
-  // const handlePayment = () => {
-  //   const options = {
-  //     key: "rzp_test_HY5jMRQoTZLe2y", // Enter your Razorpay Key ID
-  //     amount: `${total * 100}`, // Amount in paise (50000 paise = 500 INR){newPrice}
-  //     currency: "INR",
-  //     name: "Pizza Point",
-  //     description: "Test Transaction",
-  //     //   order_id:`order_${uuid.split('-')[0]}`,
-  //     image: `${logo}`, // Optional: Add your logo URL
-  //     handler: function (response) {
-  //       navigate("/orderdetails");
-  //       alert(`Payment successful: ${response.razorpay_payment_id}`);
-  //     },
-  //     prefill: {
-  //       name: "Arjun", //{username}
-  //       email: "arjunrathod@gamil.com", //{email}
-  //       contact: "7350887544", //{contact}
-  //     },
-  //     notes: {
-  //       address: "wadgaon",
-  //     },
-  //     theme: {
-  //       color: "#fff",
-  //     },
-  //   };
-
-  //   const rzp = new window.Razorpay(options);
-  //   rzp.open();
-  // };
-
   useEffect(() => {
     if (cart.length === 0) {
       setTotal(0);
     }
-  });
+  },[]);
+  // useEffect(() => {
+  //   if(user){
+  //     setCart(user.cart.items);
+  //     setTotal(user.cart.total);
+  //   }
+  // },[]);
+  useEffect(() => {
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+
+  if (storedUser && storedUser.cart) {
+    setCart(storedUser.cart.items);
+    setTotal(storedUser.cart.total);
+  }
+}, []);
+//   useEffect(() => {
+//   if (user && user.cart) {
+//     setCart((prevCart) => {
+//       const newCart = [...prevCart];
+//       user.cart.items.forEach((item) => {
+//         const existingItem = newCart.find(i => i.id === item.id);
+//         if (existingItem) {
+//           existingItem.quantity += item.quantity;
+//         } else {
+//           newCart.push(item);
+//         }
+//       });
+
+//       return newCart;
+//     });
+//     setTotal((prevTotal) => prevTotal + user.cart.total);
+//   } //only when we we will store cart to user
+// }, [user]);
   return (
     <div className="cart">
       {cart.length === 0 ? (
@@ -188,7 +155,7 @@ function Cart() {
           </div>
           <img
             style={{ height: "250px", width: "250px" }}
-            src="https://img.freepik.com/premium-vector/pizza-food-truck-vector-illustration_444196-6061.jpg?w=2000" 
+            src="https://img.freepik.com/premium-vector/pizza-food-truck-vector-illustration_444196-6061.jpg?w=2000"
             alt=""
           />
           <button
@@ -213,7 +180,7 @@ function Cart() {
           {cart.map((item, index) => (
             <div className="item-box" key={index}>
               <div className="img-sec">
-                <img src={item.img} alt=""/>
+                <img src={item.img} alt="" />
               </div>
               <div className="info-sec">
                 <strong>{item.name}</strong>
@@ -253,6 +220,7 @@ function Cart() {
           <div>Pepsi</div> total + pepsi and obj + pepsi
           <div>Cola</div>
           <div>Cola</div> */}
+
           <button className="order-btn" onClick={orderNowBtn}>
             Total {cart.length === 0 ? 0 : total}
           </button>

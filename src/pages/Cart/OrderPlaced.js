@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function OrderPlaced() {
   const navigate = useNavigate();
-   const { cart, setCart} = useContext(Context);
+   const { cart, setCart,userDetails,setUserDetails} = useContext(Context);
    const user = JSON.parse(localStorage.getItem("user"));
 
    const userUpdateCart = ()=> {
@@ -31,7 +31,7 @@ function OrderPlaced() {
         <div>
           <img src={done} alt="Verified Symbol" />
         </div>
-        <div className="order" style={{marginTop:'10px'}} onClick={()=>{navigate('/');userUpdateCart()}}>Order More</div>
+        <div className="order" style={{marginTop:'10px',cursor: "pointer"}} onClick={()=>{navigate('/');userUpdateCart()}}>Order More</div>
       </div>
     </div>
   );

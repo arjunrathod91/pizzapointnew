@@ -1,18 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-// import Navbar from "../../components/Navbar/Navbar";
 import "./Home.css";
-// import pizza from "../../Images/pizza img 2.png";
-// import allItems from "../../data/menu";
 import burger from "../../Images/burger.jpg";
 import momos from "../../Images/momos.png";
 import sandwitch from "../../Images/sandwitch.jpg";
 import fries from "../../Images/fries.webp";
 import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
-// import telephone from "../../Images/telephone.png";
-// import delivary from "../../Images/delivery-bike.png";
-// import veggieSupreme from "../../Images/veggie supreme.jpg";
-// import StarHalfIcon from "@mui/icons-material/StarHalf";
 import Footer from "../../components/Footer/Footer";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../../context/Context";
@@ -21,27 +14,13 @@ import axios from "axios";
 import sliderImg1 from "../../Images/Slider/slider1.png"
 import sliderImg2 from "../../Images/Slider/slider2.png"
 import sliderImg3 from "../../Images/Slider/slider3.png"
-// import { Troubleshoot } from "@mui/icons-material";
 
-function Home({open}) {
+function Home({ open }) {
   const navigate = useNavigate();
   const {
-    // sidebarOpen,
-    // setSidebarOpen,
-    // cart,
-    // setCart,
-    // total,
-    // setTotal,
-    // category,
-    setCategory,
+    setCategory, //use this
+    userDetails, setUserDetails,loggedIn,setLoggedIn
   } = useContext(Context);
-
-  // const cartObj = (item) => {
-  //   setCart((prevCart) => {
-  //     return [...prevCart, { ...item, quantity: 1 }];
-  //   });
-  //   setTotal((prevTotal) => prevTotal + Number(item.price));
-  // };
   const imgSrc = [
     sliderImg1,
     sliderImg2,
@@ -51,73 +30,92 @@ function Home({open}) {
   const [sliderImg, setSliderImg] = useState(imgSrc[0]);
   const [style, setStyle] = useState({});
   const [activeIndex, setActiveIndex] = useState("0");
-  const [allItems, setAllItems] = useState([]);
+  const [allItems, setAllItems] = useState([]); // use this
   const [loadMore, setLoadMore] = useState(10);
-
-  const [inputName,setInputName] = useState();
-  const [inputReview,setInputReview] = useState();
-  const [reviews,setReviews] = useState();
-  // const [close,setClose] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [inputName, setInputName] = useState();
+  const [inputReview, setInputReview] = useState();
+  const [reviews, setReviews] = useState();
 
   const transition = (newImg) => {
     setStyle({
       transform: "translateX(-100%)", // Add transform effect, for example, scaling the image
       transition: "transform 0.4s ease-in-out", // Apply smooth transition
     });
-
-    // Reset the style after the transition is complete (optional)
-    // setTimeout(() => {
-    //   setStyle({});
-    // }, 400);
     setTimeout(() => {
       setSliderImg(newImg);
       setStyle({ transform: "translateX(0)", transition: "none" }); // Reset position after changing image
     }, 200);
   };
 
- const pushReview = () => {
-  // console.log("button pressed");
-  const pushData = {
-    username: inputName,
-    review: inputReview
-  };
-// console.log(pushData);
-  axios
-    .post("https://pizzapointserver.onrender.com/reviews", pushData)
-    .then((response) => {
-      console.log("Review submitted successfully:", response.data);
+  // const itemData = JSON.parse(localStorage.getItem("itemData")) || [];
+  // const newReviews = JSON.parse(localStorage.getItem("reviews")) || [];
 
-      alert("Your review is submitted.");
+  const pushReview = async () => {
+    setLoading(true);
+    const pushData = {
+      username: inputName,
+      review: inputReview
+    };
+    // console.log("Review submitted successfully:", pushData);
+    // alert("Your review is submitted.");
+    // https://pizzapointserver.onrender.com/reviews
+    try {
+      const response = await axios.post(
+        // "http://localhost:8000/reviews",
+        "https://pizzapointserver.onrender.com/reviews",
+        pushData
+      );
 
-      // clear inputs AFTER success
+      // 🔥 instantly update UI
+      //push reviews to localhost
+      setReviews((prev) => [...prev, response.data.data]);
+
       setInputName("");
       setInputReview("");
-    })
-    .catch((error) => {
-      console.error("There was an error", error);
-    });
-};
 
-  const newReviews = [
-    {
-      name: "Sneha Jadhav",
-      review:
-        "Ordered late at night and the pizza arrived hot and fresh. The cheese was perfectly melted and the packaging was great. Highly recommended!",
+      alert("Review submitted");
 
-    },
-    {
-      name: "Rahul Jadhav",
-      review:
-        "Ordered late at night and the pizza arrived hot and fresh. The cheese was perfectly melted and the packaging was great. Highly recommended!",
-        
-    },
-    {
-      name: "Karan Rathod",
-      review:
-        "Ordered late at night and the pizza arrived hot and fresh. The cheese was perfectly melted and the packaging was great. Highly recommended!",
-        
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
-  ]
+  };
+
+  // const newReviews = [
+  //   {
+  //     name: "Sneha Jadhav",
+  //     review:
+  //       "Ordered late at night and the pizza arrived hot and fresh. The cheese was perfectly melted and the packaging was great. Highly recommended!",
+
+  //   },
+  //   {
+  //     name: "Rahul Jadhav",
+  //     review:
+  //       "Ordered late at night and the pizza arrived hot and fresh. The cheese was perfectly melted and the packaging was great. Highly recommended!",
+
+  //   },
+  //   {
+  //     name: "Karan Rathod",
+  //     review:
+  //       "Ordered late at night and the pizza arrived hot and fresh. The cheese was perfectly melted and the packaging was great. Highly recommended!",
+
+  //   }
+  // ]
+
+  //   useEffect(() => {
+  //   const wakeServer = async () => {
+  //     try {
+  //       await axios.get("https://pizzapointserver.onrender.com/");
+  //       console.log("Server is awake");
+  //     } catch (err) {
+  //       console.log("Waking server...");
+  //     }
+  //   };
+  //UptimeRobot (free)
+  //   wakeServer();
+  // }, []);
 
   useEffect(() => {
     const fetchMenu = async () => {
@@ -126,7 +124,9 @@ function Home({open}) {
           "https://pizzapointserver.onrender.com/allItems"
           // "http://localhost:8000/allItems"
         );
-        setAllItems(response.data);
+        localStorage.setItem("itemData", JSON.stringify(response.data));
+        const storedItems = localStorage.getItem("itemData");
+        setAllItems(JSON.parse(storedItems));
       } catch (err) {
         console.error("Error fetching menu data:", err);
         console.log(err);
@@ -137,9 +137,12 @@ function Home({open}) {
       try {
         const response = await axios.get(
           "https://pizzapointserver.onrender.com/reviews"
-          // "http://localhost:8000/allItems"
+          // "http://localhost:8000/reviews"
         );
-        setReviews(response.data);
+        // setReviews(response.data);
+        localStorage.setItem("reviews", JSON.stringify(response.data));
+        const storedReviews = localStorage.getItem("reviews");
+        setReviews(JSON.parse(storedReviews));
       } catch (err) {
         console.error("Error fetching menu data:", err);
         console.log(err);
@@ -147,17 +150,32 @@ function Home({open}) {
     };
     fetchMenu();
     fetchReviews();
+    const status = localStorage.getItem("loggedInStatus");
+    if(status){
+      setLoggedIn(status);
+    }
+    console.log(loggedIn);
+    console.log(userDetails);
+    console.log("status",status);
   }, []);
 
   const categoryClick = (item) => {
-    // setTimeout(()=>{
-    //   localStorage.setItem("category",category)
-    // },3000)
     localStorage.setItem("category", item);
   };
 
+  // useEffect(() => {
+  //   const storedReviews = localStorage.getItem("reviews");
+  //   const storedItems = localStorage.getItem("itemData");
+
+  //   if (storedReviews) {
+  //     setReviews(JSON.parse(storedReviews));
+  //   }
+  //   if (storedItems) {
+  //     setAllItems(JSON.parse(storedItems));
+  //   }
+  // }, [reviews,allItems]);
+
   const isValidImage = (url) => {
-    // Check for a valid URL structure
     return (
       typeof url === "string" && url.startsWith("http") && url.trim() !== ""
     );
@@ -172,7 +190,7 @@ function Home({open}) {
       </div> */}
       <div className="overflow">
         <div className="slider">
-          <img src={sliderImg} style={style} alt=""/>
+          <img src={sliderImg} style={style} alt="" />
           <div className="controls">
             <div
               className={`ball ${activeIndex === "0" ? "active" : ""}`}
@@ -293,35 +311,35 @@ function Home({open}) {
               )
             )
           ) : (
-             <div className="s2-down" style={{display:'flex',gap:'30px'}}>
-             <Box>
-              <Skeleton variant="rectangular" width={210} height={118} />
-              {/* <Skeleton /> */}
-              <Skeleton width="60%" />
-               <Skeleton width="60%" />
-            </Box>
-            <Box>
-              <Skeleton variant="rectangular" width={210} height={118} />
-              {/* <Skeleton /> */}
-              <Skeleton width="60%" />
-               <Skeleton width="60%" />
-            </Box>
-            <Box>
-              <Skeleton variant="rectangular" width={210} height={118} />
-              {/* <Skeleton /> */}
-              <Skeleton width="60%" />
-               <Skeleton width="60%" />
-            </Box>
+            <div className="s2-down" style={{ display: 'flex', gap: '30px' }}>
+              <Box>
+                <Skeleton variant="rectangular" width={210} height={118} />
+                {/* <Skeleton /> */}
+                <Skeleton width="60%" />
+                <Skeleton width="60%" />
+              </Box>
+              <Box>
+                <Skeleton variant="rectangular" width={210} height={118} />
+                {/* <Skeleton /> */}
+                <Skeleton width="60%" />
+                <Skeleton width="60%" />
+              </Box>
+              <Box>
+                <Skeleton variant="rectangular" width={210} height={118} />
+                {/* <Skeleton /> */}
+                <Skeleton width="60%" />
+                <Skeleton width="60%" />
+              </Box>
             </div>
           )}
         </div>
         {allItems.length > loadMore && (
           <div
-          onClick={() => setLoadMore((prev) => prev + 10)}
-          style={{ display: "flex",justifyContent:"center",alignContent:'center',color:'blue',cursor:'pointer' }}
-        >
-          See More
-        </div>
+            onClick={() => setLoadMore((prev) => prev + 10)}
+            style={{ display: "flex", justifyContent: "center", alignContent: 'center', color: 'blue', cursor: 'pointer' }}
+          >
+            See More
+          </div>
         )}
       </section>
       {/* {allItems.length > 0 ? console.log(true) : console.log(false)}
@@ -334,7 +352,7 @@ function Home({open}) {
         </div>
       </section> */}
       {/* <section className="call-delivery"> */}
-        {/* <div><img src={telephone} alt="" />
+      {/* <div><img src={telephone} alt="" />
         <p className="delivery-text">Call On Delivary</p>
         </div>
         <div>
@@ -347,13 +365,13 @@ function Home({open}) {
         <div className="block">
           {reviews ? reviews.map((item, index) => (
             <div className="review" key={index}>
-            <p>
-              {item.review}
-            </p>  
-            <div className="name-box">
-            <p className="name">- {item.username}</p>
+              <p>
+                {item.review}
+              </p>
+              <div className="name-box">
+                <p className="name">- {item.username}</p>
+              </div>
             </div>
-          </div>
           )) : (<>No Reviews</>)}
         </div>
       </section>
@@ -364,15 +382,15 @@ function Home({open}) {
             <input placeholder="Email" name="email" />
           </div> */}
           <div>
-            <input placeholder="Username" onChange={(e)=>setInputName(e.target.value)} value={inputName} />
+            <input placeholder="Username" onChange={(e) => setInputName(e.target.value)} value={inputName} />
           </div>
           <div>
-            <textarea placeholder="Message" rows={5} onChange={(e)=>setInputReview(e.target.value)} value={inputReview} />
+            <textarea placeholder="Message" rows={5} onChange={(e) => setInputReview(e.target.value)} value={inputReview} />
           </div>
-           <button style={{cursor:'pointer'}} onClick={pushReview}>Submit</button>
+          <button style={{ cursor: 'pointer' }} onClick={pushReview}>{loading ? "Submitting..." : "Submit"}</button>
 
         </div>
-         {/* <h2>Write a Review</h2>
+        {/* <h2>Write a Review</h2>
         <div >
           <input type="text" placeholder="Your Name" />
           <input type="text" placeholder="Your Email" />

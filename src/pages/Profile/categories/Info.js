@@ -1,14 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "./Info.css";
 import { Context } from "../../../context/Context";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useMediaQuery } from "@mui/material";
 
 function Info() {
-  const {setRIghtSec } =
+  const {setRIghtSec,userDetails,setUserDetails } =
     useContext(Context);
   const isMobile = useMediaQuery("(max-width:600px)");
-  const user = JSON.parse(localStorage.getItem("user"));
+
+  useEffect(()=>{
+    const user = JSON.parse(localStorage.getItem("user"));
+    setUserDetails(user);
+  },[])
 
   return (
     <div className="info">
@@ -17,23 +21,23 @@ function Info() {
       <div>User Details</div>
         <div className="item-sec">
           <label className="label">Name</label>
-          <div className="item">{user.username}</div>
+          <div className="item">{userDetails.username}</div>
         </div>
         <div className="item-sec">
           <label className="label">Address</label>
-          <div className="item">{user.address}</div>
+          <div className="item">{userDetails.address}</div>
         </div>
         <div className="item-sec">
           <label className="label">Mobile NO.</label>
-          <div className="item">{user.contact}</div>
+          <div className="item">{userDetails.contact}</div>
         </div>
-        <div className="item-sec">
+        {/* <div className="item-sec">
           <label className="label">Password</label>
           <div className="item">{user.password}</div>
-        </div>
+        </div> */}
         <div className="item-sec">
           <label className="label">Email Id</label>
-          <div className="item">{user.email}</div>
+          <div className="item">{userDetails.email}</div>
         </div>
       </div>
     </div>

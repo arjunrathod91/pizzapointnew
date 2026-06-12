@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./profile.css";
 import { Context } from "../../context/Context";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import axios from "axios";
 
 function Signup() {
-  const { setLoggedIn} =
+  const { setLoggedIn, cart, total, userDetails, setUserDetails, loggedIn } =
     useContext(Context);
   const navigate = useNavigate();
 
@@ -22,28 +22,52 @@ function Signup() {
 
   const handleBtn = () => {
     if (!username || !email || !password || !contact || !address) {
-    alert("Please fill all fields");
-    return;
-  }
-      const user = {
-        "username":username,
-        "email":email,
-        "password":password,
-        "contact":contact,
-        "address":address
-      }
-      axios
-        .post("https://pizzapointserver.onrender.com/userDetail", user)
-        .then((response) => {
-          console.log(response.data);
-           alert("Signup Successfully!");
-           navigate("/profile");
-        })
-        .catch((error) => {
-          console.error("There was an error", error);
-          alert("Failed to signup.");
-        });
+      alert("Please fill all fields");
+      return;
+    }
+    const user = {
+      username: username,
+      email: email,
+      password: password,
+      contact: contact,
+      address: address,
+
+      cart: {
+        items: cart,
+        total: total
+      },
+
+      order: []
+    };
+    axios
+      // .post("http://localhost:8000/userDetail", user)
+      .post("https://pizzapointserver.onrender.com/userDetail", user)
+      .then((response) => {
+        console.log(response.data);
+        console.log(user);
+        alert("Signup Successfully!");
+        localStorage.setItem("user", JSON.stringify(user));
+        setUserDetails(user);
+        setLoggedIn(true);
+        localStorage.setItem("loggedInStatus", JSON.stringify(true));
+        navigate("/profile");
+      })
+      .catch((error) => {
+        console.error("There was an error", error);
+        alert("Failed to signup.");
+      });
   };
+
+  // useEffect(() => {
+  //   const loggedInStatus = localStorage.getItem("loggedInStatus");
+  //   setLoggedIn(loggedInStatus);
+  // }, []);
+
+  // useEffect(() => {
+  //   if (loggedIn) {
+  //     navigate("/profile");
+  //   }
+  // }, []);
 
   return (
     <div className="login">
@@ -108,7 +132,6 @@ function Signup() {
         <div
           className="login-btn"
           onClick={() => {
-            setLoggedIn(true);
             handleBtn();
           }}
         >

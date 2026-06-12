@@ -2,40 +2,76 @@ import React, { useContext } from "react";
 import StarHalfIcon from "@mui/icons-material/StarHalf";
 import { Context } from "../../context/Context";
 import "./Card.css";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Card({ item, index }) {
-  const { setCart, setTotal, cart,loggedIn } = useContext(Context);
+  const { setCart, setTotal, cart, loggedIn,userDetails,setUserDetails } = useContext(Context);
+  const navigate = useNavigate();
 
   const user = JSON.parse(localStorage.getItem("user"));
+  const newCart = JSON.parse(localStorage.getItem("cart")) || [];
+  const newTotal = JSON.parse(localStorage.getItem("total")) || 0;
 
   const cartObj = async (item) => {
-    setCart((prevCart) => {
-      return [...prevCart, { ...item, quantity: 1 }];
-    });
-    if(loggedIn){
+    // setCart((prevCart) => {
+    //   return [...prevCart, { ...item, quantity: 1 }];
+    // });
+    // localStorage.setItem("cart", JSON.stringify());
+    if (loggedIn && user) {
+      setCart((prevCart) => {
+        const updatedCart = [...prevCart, { ...item, quantity: 1 }];
+        return updatedCart;
+      });
+      setTotal((prevTotal) => {
+        const updatedTotal = prevTotal + Number(item.price);
+        return updatedTotal;
+      });
+      // newTotal = newTotal + Number(item.price);
+      // const userUpdate = {
+      //   username: user.username,
+      //   email: user.email,
+      //   password: user.password,
+      //   contact: user.contact,
+      //   address: user.address,
+      //   cart: {
+      //     items: [...user.cart.items, { ...item, quantity: 1 }],
+      //     total: user.cart.total + Number(item.price)
+      //   },
+      //   order: user.order
+      // };
       const userUpdate = {
-      username: user.username,
-      email: user.email,
-      password: user.password,
-      contact: user.contact,
-      address: user.address,
-      cart: [...cart, { ...item, quantity: 1 }], // Include the new item in the cart
-    };
-    console.log(userUpdate);
-    try {
-      const response = await axios.put(
-        "https://pizzapointserver.onrender.com/userDetail",
-        // "http://localhost:8000/userDetail",
-        userUpdate
-      );
-      console.log("Cart updated successfully:", response.data);
-      localStorage.setItem("user", JSON.stringify(response.data));
-    } catch (error) {
-      console.log(error);
+        ...user,
+        cart: {
+          items: [...user.cart.items ? user.cart.items : [], { ...item, quantity: 1 }],
+          total: user.cart.total + Number(item.price)
+        }
+      };
+      console.log(userUpdate);
+      localStorage.setItem("user", JSON.stringify(userUpdate));
+      // try {
+      //   const response = await axios.put(
+      //     "http://localhost:8000/userDetail",
+      //     // "http://localhost:8000/userDetail",
+      //     userUpdate
+      //   );
+      //   console.log("Cart updated successfully:", response.data);
+      //   localStorage.setItem("user", JSON.stringify(response.data));
+      // } catch (error) {
+      //   console.log(error);
+      // }
+    } else {
+      setCart((prevCart) => {
+        const updatedCart = [...prevCart, { ...item, quantity: 1 }];
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+        return updatedCart;
+      });
+      setTotal((prevTotal) => {
+        const updatedTotal = prevTotal + Number(item.price);
+        localStorage.setItem("total", JSON.stringify(updatedTotal));
+        return updatedTotal;
+      });
     }
-    }
-    setTotal((prevTotal) => prevTotal + Number(item.price));
   };
 
   // const deleteItem = (item) => {
@@ -58,11 +94,12 @@ function Card({ item, index }) {
           <p>{item.ingridient ? item.ingridient.substring(0, 10) : ''}</p>
           <p className="price">₹{item.price}</p>
         </div>
-        {cart.some((cartItem) => cartItem.name === item.name) ? (
-          <button className="added"> 
-          {/* onClick={() => deleteItem(item)} */}
-          {/* onClick={() => navigate("/cart")} */}
-            Added To Cart
+        {newCart.some((cartItem) => cartItem.name === item.name) ? (
+          <button className="added">
+            {/* onClick={() => deleteItem(item)} */}
+            {/* onClick={() => navigate("/cart")} */}
+            Added To Cart *
+            {/* Go To Cart */}
           </button>
         ) : (
           <button className="order" onClick={() => cartObj(item)}>

@@ -430,6 +430,9 @@
     border: gray 0.2px solid;
     border-radius: 3px;
 }
+.write-block button:hover{
+    background-color: rgb(231, 143, 3);
+}
 
 .write-block button{
     padding: 10px;

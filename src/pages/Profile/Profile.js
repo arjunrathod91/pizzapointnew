@@ -6,24 +6,26 @@ import { LocalShipping, Person } from "@mui/icons-material";
 import { Context } from "../../context/Context";
 import { useNavigate } from "react-router-dom";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useMediaQuery } from "@mui/material";
 function Profile() {
   const [section, setSection] = useState("Orders");
-  const { loggedIn,rightSec, setRIghtSec } = useContext(Context);
+  const { loggedIn,setLoggedIn, rightSec, setRIghtSec } = useContext(Context);
   const isMobile = useMediaQuery("(max-width:600px)");
   const [, setZiNdexLeft] = useState("1");
   const [, setZiNdexRight] = useState("2");
-  const width= "100%";
+  const width = "100%";
   const position = "absolute";
+  const user = JSON.parse(localStorage.getItem("user"));
   const renderSection = () => {
     switch (section) {
-  case "Orders":
-    return <Orders />;
-  case "Profile":
-    return <Info />;
-  default:
-    return null;
-}
+      case "Orders":
+        return <Orders />;
+      case "Profile":
+        return <Info />;
+      default:
+        return null;
+    }
   };
 
   const navigate = useNavigate();
@@ -37,11 +39,26 @@ function Profile() {
       setZiNdexRight("2");
     }
   };
+
+  const logOut = () => {
+    setLoggedIn(false);
+    localStorage.setItem("loggedInStatus", false);
+    localStorage.removeItem("user");
+    navigate("/login");
+  }
+
   useEffect(() => {
-    if (!loggedIn) {
+      const loggedInStatus = localStorage.getItem("loggedInStatus");
+      console.log("loggedInStatus: ", loggedInStatus);
+      setLoggedIn(loggedInStatus);
+  }, []);
+
+  useEffect(() => {
+    if (loggedIn === 'false') {
       navigate("/login");
+      console.log(loggedIn);
     }
-  });
+  }, []);
   return (
     <div className="profile">
       <div
@@ -78,6 +95,20 @@ function Profile() {
         >
           <LocalShipping />
           <span>Orders</span>
+        </div>
+        <div
+          className="pro-sec"
+          onClick={() => {
+            // setSection("Orders");
+            // responsiveCtr();
+            // setRIghtSec(true);
+            // localStorage.setItem("loggedInStatus", false);
+            // setLoggedIn(false);
+            logOut();
+          }}
+        >
+          <ExitToAppIcon />
+          <span>Log Out</span>
         </div>
       </div>
       <div

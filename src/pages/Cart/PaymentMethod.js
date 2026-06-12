@@ -1,14 +1,24 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../Images/logo.png";
 import { Context } from "../../context/Context";
+import axios from "axios";
 
 function PaymentMethod() {
   const [paymentType, setPaymentType] = useState("");
+  const [orderType, setOrderType] = useState("");
   const billObj = JSON.parse(localStorage.getItem("newOrder")) || [];
-  // const user = JSON.parse(localStorage.getItem("user"));
-  const { cart, setCart} = useContext(Context);
+  const user = JSON.parse(localStorage.getItem("user"));
+  const newCart = JSON.parse(localStorage.getItem("cart")) || [];
+  const newTotal = JSON.parse(localStorage.getItem("total"));
   const navigate = useNavigate();
+  const {
+    cart,
+    setCart,
+    total,
+    setTotal,
+    userDetails, setUserDetails
+  } = useContext(Context);
 
   const handlePayment = () => {
     const options = {
@@ -40,20 +50,123 @@ function PaymentMethod() {
     rzp.open();
   };
 
-  // const newOrder=()=>{
+  const handleOrders = async () => {
+    // const currentDate = new Date().toLocaleString("en-IN", {
+    //   timeZone: "Asia/Kolkata",
+    //   // day: "numeric",
+    //   // month: "numeric",
+    //   // year: "numeric",
+    //   // hour: "numeric",
+    //   // minute: "2-digit",
+    //   // hour12: true,
+    // });
+    // const currentDate = new Date().toLocaleDateString("en-IN", {
+    //   timeZone: "Asia/Kolkata",
+    // });
+    // const currentDate = new Date().toLocaleDateString("en-IN", {
+    //   timeZone: "Asia/Kolkata",
+    //   day: "numeric",
+    //   month: "short",
+    //   year: "numeric",
+    // });
+    // const currentDate = new Date().toLocaleDateString("en-GB", {
+    //   timeZone: "Asia/Kolkata",
+    // });
+    const currentDate = new Date()
+      .toLocaleDateString("en-GB", {
+        timeZone: "Asia/Kolkata",
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      })
+      // .replace(/\//g, " ");
+    const currentTime = new Date().toLocaleTimeString("en-IN", {
+      timeZone: "Asia/Kolkata",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+    // console.log(currentDate);
+    // console.log(" ", currentTime);
+    const newOrder = {
+      username: user.username,
+      email: user.email,
+      contact: user.contact,
+      address: user.address,
+      order: user.cart.items,
+      total: total,
+      paymentType: paymentType,
+      date: currentDate,
+      time:currentTime,
+      orderType: orderType,
+    };
+    const userOrder = {
+      orderItems: user.cart.items,
+      total: total,
+      paymentType: paymentType,
+      orderType: orderType,
+      date: currentDate,
+    };
+    const userUpdate = {
+      username: user.username,
+      email: user.email,
+      password: user.password,
+      contact: user.contact,
+      address: user.address,
+      cart: {
+        items: [],
+        total: 0
+      },
+      order: [...user.order, userOrder]
+    };
+    console.log(newOrder);
+    localStorage.setItem("user", JSON.stringify(userUpdate));
+    try {
+      const response1 = await axios.put(
+        // "http://localhost:8000/userDetail",
+        "https://pizzapointserver.onrender.com/userDetail",
+        {
+          email: user.email,
+          order: userOrder
+        }
+      );
+      // navigate("/paymentmethod");
+      setCart([]);
+      localStorage.setItem("cart", JSON.stringify([]));
+      localStorage.setItem("total", JSON.stringify(0));
+      console.log("Order updated successfully:", response1.data);
+    } catch (error) {
+      console.log(error);
+    }
 
-  // }
+    try {
+      const response = await axios.post(
+        // "http://localhost:8000/newOrder",
+        "https://pizzapointserver.onrender.com/newOrder",
+        newOrder
+      );
+      console.log("the data of user sent successfully:", response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const payBill = () => {
+    handleOrders();
     if (paymentType === "Online") {
       billObj["paymentType"] = paymentType;
       handlePayment();
-      setCart([]);
       console.log(cart);
     } else {
       navigate("/orderplaced");
     }
   };
+  useEffect(() => {
+    if (user) {
+      setCart(user.cart.items);
+      setTotal(user.cart.total);
+    }
+  }, []);
 
   return (
     <div className="payment-method">
@@ -62,7 +175,7 @@ function PaymentMethod() {
         style={{ display: "flex", justifyContent: "start" }}
       >
         <div className="bill">
-          Total Bill : ₹<span style={{ fontWeight: "500" }}>{billObj.total}</span>
+          Total Bill : ₹<span style={{ fontWeight: "500" }}>{newTotal}</span>
         </div>
         {cart.map((item, index) => (
           <div key={index}>
@@ -78,8 +191,46 @@ function PaymentMethod() {
             </div>
           </div>
         ))}
+
         <div className="ptype">
+          <span>Order Type</span>
           <div className="payment-type">
+            <input
+              type="radio"
+              name="orderType"
+              style={{ cursor: "pointer" }}
+              onClick={() => setOrderType("Dine In")}
+            />{" "}
+            Dine In
+          </div>
+          <div className="payment-type">
+            <input
+              type="radio"
+              name="orderType"
+              style={{ cursor: "pointer" }}
+              onClick={() => setOrderType("Home Delivery")}
+            />
+            Home delivary
+          </div>
+          <div className="payment-type">
+            <input
+              type="radio"
+              name="orderType"
+              style={{ cursor: "pointer" }}
+              onClick={() => setOrderType("Parcel")}
+            />
+            Parcel
+          </div>
+          {/* <div className="continew" onClick={payBill}>
+            Place a Order
+          </div> */}
+        </div>
+
+
+
+        <div className="ptype">
+          <span>Payment Type</span>
+          {orderType === "Home Delivery" ? (<div className="payment-type">
             <input
               type="radio"
               name="r1"
@@ -87,7 +238,7 @@ function PaymentMethod() {
               onClick={() => setPaymentType("COD")}
             />{" "}
             Cash On Delivery
-          </div>
+          </div>) : ''}
           <div className="payment-type">
             <input
               type="radio"
@@ -97,6 +248,15 @@ function PaymentMethod() {
             />
             Pay Online
           </div>
+          {orderType === "Dine In" || orderType === "Parcel" ? (<div className="payment-type">
+            <input
+              type="radio"
+              name="r1"
+              style={{ cursor: "pointer" }}
+              onClick={() => setPaymentType("Pay at Counter")}
+            />
+            Pay at Counter
+          </div>) : ''}
           <div className="continew" onClick={payBill}>
             Place a Order
           </div>
