@@ -37,11 +37,12 @@ useEffect(() => {
           <ArrowBackIcon />
         </div>
       ) : ""}
-      {userDetails.order && userDetails.order.length > 0 ? "Orders" : "No orders found."}
+      {userDetails.order && userDetails.order.length > 0 ? <h1>Orders</h1>: "No orders found."}
        <div style={{padding:'20px'}}>
          {userDetails.order ? userDetails.order.map((item,index)=>(
           <div key={index}>
            <h3>{item.date}</h3>
+           <h3>Total Bill: {item.total}</h3>
            {item.orderItems.map((item,index)=>(
             <div key={index}>
                  <span>{item.name}</span>
@@ -51,7 +52,7 @@ useEffect(() => {
                </div>
                <div className="info-sec">
                  <strong>{item.name}</strong>
-                 <h2>₹{item.price}</h2>
+                 <h4>₹{item.price}</h4>
                  <p>{item.type}</p>
                </div>
              </div>
