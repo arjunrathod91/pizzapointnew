@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-function Orders() {
+function Orders({isVisible}) {
   const {loggedIn,setLoggedIn,setRIghtSec,userDetails,setUserDetails } =
     useContext(Context);
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -32,13 +32,14 @@ useEffect(() => {
 }, [loggedIn, navigate]);
   return (
     <div className="orders">
+      
       {isMobile ? (
         <div onClick={() => setRIghtSec(false)}>
           <ArrowBackIcon />
         </div>
       ) : ""}
       {userDetails.order && userDetails.order.length > 0 ? <h1>Orders</h1>: "No orders found."}
-       <div style={{padding:'20px'}}>
+       <div style={{padding:'20px'}}  style={{display: isVisible ? "block" : "none"}} >
          {userDetails.order ? userDetails.order.map((item,index)=>(
           <div key={index}>
            <h3>{item.date}</h3>

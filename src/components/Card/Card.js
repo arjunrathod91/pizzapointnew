@@ -6,7 +6,7 @@ import "./Card.css";
 // import axios from "axios";
 
 function Card({ item, index }) {
-  const { setCart, setTotal, cart, loggedIn } = useContext(Context);
+  const { setCart, setTotal,total, cart, loggedIn } = useContext(Context);
   // const navigate = useNavigate();
 
   const user = JSON.parse(localStorage.getItem("user"));
@@ -72,6 +72,7 @@ function Card({ item, index }) {
         return updatedTotal;
       });
     }
+    console.log(total);
   };
 
   // const deleteItem = (item) => {

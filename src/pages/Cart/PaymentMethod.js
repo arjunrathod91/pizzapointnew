@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../Images/logo.png";
@@ -166,7 +168,7 @@ function PaymentMethod() {
       setCart(user.cart.items);
       setTotal(user.cart.total);
     }
-  },[user,setCart,setTotal]);
+  },[setCart,setTotal]);
 
   return (
     <div className="payment-method">
@@ -175,7 +177,7 @@ function PaymentMethod() {
         style={{ display: "flex", justifyContent: "start" }}
       >
         <div className="bill">
-          Total Bill : ₹<span style={{ fontWeight: "500" }}>{newTotal}</span>
+          Total Bill : ₹<span style={{ fontWeight: "500" }}>{total}</span>
         </div>
         {cart.map((item, index) => (
           <div key={index}>

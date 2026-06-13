@@ -16,17 +16,26 @@ function Profile() {
   const [, setZiNdexRight] = useState("2");
   const width = "100%";
   const position = "absolute";
+  const [isVisible, setIsVisible] = useState(false);
   // const user = JSON.parse(localStorage.getItem("user"));
   const renderSection = () => {
     switch (section) {
       case "Orders":
-        return <Orders />;
+        return <Orders isVisible={isVisible} />;
       case "Profile":
-        return <Info />;
+        return <Info isVisible={isVisible} />;
       default:
         return null;
     }
   };
+
+  useEffect(() => {
+  if (section === "Orders" || section === "Profile") {
+    setIsVisible(true);
+  } else {
+    setIsVisible(false);
+  }
+}, [section]);
 
   const navigate = useNavigate();
   // const login = () => {
@@ -51,7 +60,7 @@ function Profile() {
       const loggedInStatus = localStorage.getItem("loggedInStatus");
       console.log("loggedInStatus: ", loggedInStatus);
       setLoggedIn(loggedInStatus);
-  });
+  },[]);
 
   useEffect(() => {
     if (loggedIn === 'false') {
@@ -70,10 +79,10 @@ function Profile() {
           top: `${isMobile ? "50px" : "0px"}`,
         }}
       >
-        <div className="">
+        {/* <div className="">
           <DashboardIcon />
-          <span>Dashboard</span>
-        </div>
+          <h3>Dashboard</h3> 
+        </div> */}
         <div
           className="pro-sec"
           onClick={() => {

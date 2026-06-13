@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useContext} from "react";
 import { Context } from "../../context/Context";
 import done from "../../Images/verified.gif";
@@ -5,24 +7,26 @@ import { useNavigate } from "react-router-dom";
 
 function OrderPlaced() {
   const navigate = useNavigate();
-   const { cart, setCart} = useContext(Context);
+   const { cart, setCart,total,setTotal} = useContext(Context);
    const user = JSON.parse(localStorage.getItem("user"));
 
    const userUpdateCart = ()=> {
-    const userUpdate = {
-      username: user.username,
-      email: user.email,
-      password: user.password,
-      contact: user.contact,
-      address: user.address,
-      cart: [],
-      order: cart
-    };
-    console.log(userUpdate);
-    localStorage.setItem("user", JSON.stringify(userUpdate));
-    setCart([]);
-    console.log(cart);
-    console.log(cart.length);
+    setTotal(0);
+    // console.log(total);
+    // const userUpdate = {
+    //   username: user.username,
+    //   email: user.email,
+    //   password: user.password,
+    //   contact: user.contact,
+    //   address: user.address,
+    //   cart: [],
+    //   order: cart
+    // };
+    // console.log(userUpdate);
+    // localStorage.setItem("user", JSON.stringify(userUpdate));
+    // setCart([]);
+    // console.log(cart);
+    // console.log(cart.length);
    }
   return (
     <div className="order-placed">
