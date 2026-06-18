@@ -40,13 +40,17 @@ useEffect(() => {
       ) : ""}
       {userDetails.order && userDetails.order.length > 0 ? <h1>Orders</h1>: "No orders found."}
        <div style={{padding:'20px'}}  style={{display: isVisible ? "block" : "none"}} >
-         {userDetails.order ? userDetails.order.map((item,index)=>(
+         {userDetails.order ? userDetails.order.slice()
+  .reverse().map((item,index)=>(
           <div key={index}>
-           <h3>{item.date}</h3>
+           <div style={{display:'flex',justifyContent:'space-between'}}>
+              <h3>{item.date}</h3>
+              <h3 style={{marginRight:'20px'}}>{item.time}</h3>
+            </div>
            <h3>Total Bill: {item.total}</h3>
            {item.orderItems.map((item,index)=>(
             <div key={index}>
-                 <span>{item.name}</span>
+                 {/* <span>{item.name}</span> */}
                  <div className="item-box" >
                <div className="img-sec">
                  <img src={item.img} alt="" />

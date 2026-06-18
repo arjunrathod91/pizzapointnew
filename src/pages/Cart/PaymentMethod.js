@@ -108,6 +108,7 @@ function PaymentMethod() {
       paymentType: paymentType,
       orderType: orderType,
       date: currentDate,
+      time: currentTime,
     };
     const userUpdate = {
       username: user.username,
