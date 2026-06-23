@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-
+/* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../Images/logo.png";
@@ -12,12 +12,12 @@ function PaymentMethod() {
   const billObj = JSON.parse(localStorage.getItem("newOrder")) || [];
   const user = JSON.parse(localStorage.getItem("user"));
   // const newCart = JSON.parse(localStorage.getItem("cart")) || [];
-  const newTotal = JSON.parse(localStorage.getItem("total"));
+  const newTotal = JSON.parse(localStorage.getItem("newTotal"));
   const navigate = useNavigate();
   const {
     cart,
     setCart,
-    total,
+    // total,
     setTotal,
     // userDetails, setUserDetails
   } = useContext(Context);
@@ -96,7 +96,7 @@ function PaymentMethod() {
       contact: user.contact,
       address: user.address,
       order: user.cart.items,
-      total: total,
+      total: newTotal,
       paymentType: paymentType,
       date: currentDate,
       time:currentTime,
@@ -104,7 +104,7 @@ function PaymentMethod() {
     };
     const userOrder = {
       orderItems: user.cart.items,
-      total: total,
+      total: newTotal,
       paymentType: paymentType,
       orderType: orderType,
       date: currentDate,
@@ -171,6 +171,12 @@ function PaymentMethod() {
     }
   },[setCart,setTotal]);
 
+  useEffect(() => {
+    if (!user) {
+      navigate("/profile");
+    }   
+  },[user,navigate]);
+
   return (
     <div className="payment-method">
       <div
@@ -178,7 +184,7 @@ function PaymentMethod() {
         style={{ display: "flex", justifyContent: "start" }}
       >
         <div className="bill">
-          Total Bill : ₹<span style={{ fontWeight: "500" }}>{total}</span>
+          Total Bill : ₹<span style={{ fontWeight: "500" }}>{newTotal}</span>
         </div>
         {cart.map((item, index) => (
           <div key={index}>
@@ -189,7 +195,7 @@ function PaymentMethod() {
               <div className="info-sec">
                 <label>{item.name}</label>
                 <p style={{ fontSize: "14px" }}>{item.ingridient}</p>
-                <label>₹{item.price}</label>
+                <label>₹{item.price} X {item.quantity} = ₹{item.price * item.quantity}</label>
               </div>
             </div>
           </div>

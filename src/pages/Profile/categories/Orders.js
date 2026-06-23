@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext, useEffect } from "react";
 import { Context } from "../../../context/Context";
 import "./Orders.css";
@@ -39,7 +40,7 @@ useEffect(() => {
         </div>
       ) : ""}
       {userDetails.order && userDetails.order.length > 0 ? <h1>Orders</h1>: "No orders found."}
-       <div style={{padding:'20px'}}  style={{display: isVisible ? "block" : "none"}} >
+       <div style={{padding:'20px',display: isVisible ? "block" : "none"}}>
          {userDetails.order ? userDetails.order.slice()
   .reverse().map((item,index)=>(
           <div key={index}>

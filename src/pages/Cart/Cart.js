@@ -42,7 +42,21 @@ function Cart() {
   };
 
   const increasingOrder = (item) => {
-    setCart((prevCart) => {
+    if(user && loggedIn){
+      setCart((prevCart) => {
+      const updatedCart = prevCart.map((cartItem) =>
+        cartItem.name === item.name
+          ? { ...cartItem, quantity: cartItem.quantity + 1 }
+          : cartItem
+      );
+      return updatedCart;
+    });
+    setTotal((prevTotal) => {
+      const updatedTotal = prevTotal + Number(item.price);
+      return updatedTotal;
+    });
+    }else{
+      setCart((prevCart) => {
       const updatedCart = prevCart.map((cartItem) =>
         cartItem.name === item.name
           ? { ...cartItem, quantity: cartItem.quantity + 1 }
@@ -56,6 +70,7 @@ function Cart() {
       localStorage.setItem("total", JSON.stringify(updatedTotal));
       return updatedTotal;
     });
+    }
   };
 
   const decreasingOrder = (item) => {
@@ -86,6 +101,7 @@ function Cart() {
     if (loggedIn || user) {
       if (total > 0) {
         navigate("/paymentmethod");
+        localStorage.setItem("newTotal", JSON.stringify(total));
       }
     } else {
       navigate("/profile");
